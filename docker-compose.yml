@@ -1,0 +1,12 @@
+version: '1'
+
+services:
+  web:
+    image: mersadmgl/rooms:1
+    working_dir: /app
+
+    ports:
+      - '3000:3000'
+
+    restart: unless-stopped
+    tty: true
