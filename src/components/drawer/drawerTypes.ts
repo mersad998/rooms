@@ -11,6 +11,7 @@ export interface DrawerViewProps {
   handleDrawerClose: () => void;
   onRoutClick: (newRoute: string) => () => void;
   children: ReactNode;
+  colorMode?: { toggleColorMode: () => void };
 }
 
 export interface DrawerItem {

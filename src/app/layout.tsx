@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 const RootLayout = (props: Readonly<RootLayoutProps>): React.ReactNode => {
   return (
     <html lang="en">
-      <body className={`${inter.className}`} style={{ background: '#f5f5f5' }}>
+      <body className={`${inter.className}`}>
         {/* wrap drawer on all pages */}
         <Drawer>
           <Suspense fallback={<FullLayoutSkeleton />}>{props.children}</Suspense>

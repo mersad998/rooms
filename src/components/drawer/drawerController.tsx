@@ -2,10 +2,13 @@
 
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
+import { ThemeProvider } from '@mui/system';
+
+import SettingsContext from '@/app/core/contexts/settingsContext';
+import useSettings from '@/app/core/hooks/useSettings';
+import DrawerView from './drawerView';
 
 import type { ResponsiveDrawerProps } from './drawerTypes';
-
-import DrawerView from './drawerView';
 
 const ResponsiveDrawer: React.FC<ResponsiveDrawerProps> = (props: ResponsiveDrawerProps) => {
   const { children } = props;
@@ -13,6 +16,7 @@ const ResponsiveDrawer: React.FC<ResponsiveDrawerProps> = (props: ResponsiveDraw
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
 
+  const { colorMode, theme } = useSettings();
   const router = useRouter();
 
   // close drawer in both mobile and desktop
@@ -39,15 +43,20 @@ const ResponsiveDrawer: React.FC<ResponsiveDrawerProps> = (props: ResponsiveDraw
   };
 
   return (
-    <DrawerView
-      handleDrawerToggle={handleDrawerToggle}
-      mobileOpen={mobileOpen}
-      handleDrawerTransitionEnd={handleDrawerTransitionEnd}
-      handleDrawerClose={handleDrawerClose}
-      onRoutClick={onRoutClick}
-    >
-      {children}
-    </DrawerView>
+    <SettingsContext.Provider value={{ colorMode }}>
+      <ThemeProvider theme={theme}>
+        <DrawerView
+          handleDrawerToggle={handleDrawerToggle}
+          mobileOpen={mobileOpen}
+          handleDrawerTransitionEnd={handleDrawerTransitionEnd}
+          handleDrawerClose={handleDrawerClose}
+          onRoutClick={onRoutClick}
+          colorMode={colorMode}
+        >
+          {children}
+        </DrawerView>
+      </ThemeProvider>
+    </SettingsContext.Provider>
   );
 };
 

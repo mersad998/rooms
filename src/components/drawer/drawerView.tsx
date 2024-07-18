@@ -8,6 +8,9 @@ import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { useTheme } from '@mui/material/styles';
 
 import { DRAWER_WIDTH } from './constants';
 
@@ -16,7 +19,10 @@ import { APP_NAME } from '@/app/constants';
 import DrawerItemsContainer from './drawerItemsContainer';
 
 const DrawerView: React.FC<DrawerViewProps> = (props) => {
-  const { handleDrawerToggle, mobileOpen, handleDrawerTransitionEnd, handleDrawerClose, onRoutClick, children } = props;
+  const { handleDrawerToggle, mobileOpen, handleDrawerTransitionEnd, handleDrawerClose, onRoutClick, children, colorMode } =
+    props;
+
+  const theme = useTheme();
 
   return (
     <Box sx={{ display: 'flex', width: '100%' }}>
@@ -46,6 +52,10 @@ const DrawerView: React.FC<DrawerViewProps> = (props) => {
           <Typography variant="h6" noWrap component="div" flex={1}>
             {APP_NAME}
           </Typography>
+
+          <IconButton onClick={colorMode?.toggleColorMode} color="inherit">
+            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
         </Toolbar>
       </AppBar>
 
