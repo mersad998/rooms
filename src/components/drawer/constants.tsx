@@ -1,8 +1,9 @@
-import HomeIcon from '@mui/icons-material/Home';
-import PeopleIcon from '@mui/icons-material/People';
-import KeyIcon from '@mui/icons-material/Key';
-import AutoDeleteIcon from '@mui/icons-material/AutoDelete';
+import HolidayVillageIcon from '@mui/icons-material/HolidayVillage';
+import MapIcon from '@mui/icons-material/Map';
+import SettingsIcon from '@mui/icons-material/Settings';
+import SupportIcon from '@mui/icons-material/Support';
 import LogoutIcon from '@mui/icons-material/Logout';
+import AddHomeIcon from '@mui/icons-material/AddHome';
 
 import type { DrawerItem } from './drawerTypes';
 
@@ -10,30 +11,35 @@ export const DRAWER_WIDTH = 240;
 
 export const primaryItems: DrawerItem[] = [
   {
-    title: 'flats',
-    icon: <HomeIcon />,
+    title: 'Flat list',
+    icon: <HolidayVillageIcon />,
     link: '/',
   },
   {
-    title: 'users',
-    icon: <PeopleIcon />,
-    link: '/users',
+    title: 'Add your flat',
+    icon: <AddHomeIcon />,
+    link: '/add',
   },
   {
-    title: 'permissions',
-    icon: <KeyIcon />,
-    link: '/permissions',
+    title: 'Show on map',
+    icon: <MapIcon />,
+    link: '/',
+  },
+  {
+    title: 'Settings',
+    icon: <SettingsIcon />,
+    link: '/',
   },
 ];
 
 export const secondaryItems: DrawerItem[] = [
   {
-    title: 'deleted servers',
-    icon: <AutoDeleteIcon />,
-    link: '/trash',
+    title: 'Support',
+    icon: <SupportIcon />,
+    link: '/',
   },
   {
-    title: 'signOut',
+    title: 'SignOut',
     icon: <LogoutIcon style={{ color: '#D10A65' }} />,
     link: '/',
   },
