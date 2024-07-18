@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
 import { Box, Paper } from '@mui/material';
 
-interface Apartment {
+export interface Apartment {
   name: string;
   location: string;
   price: number;
@@ -11,6 +11,7 @@ interface Apartment {
 }
 
 import makeStyles from '@mui/styles/makeStyles';
+import AddApartmentForm from './addApartmentForm';
 
 export const useStyles = makeStyles(() => ({
   cardContainer: {
@@ -22,7 +23,8 @@ export const useStyles = makeStyles(() => ({
   },
 }));
 
-const AddApartment: FC = () => {
+const Apartments: FC = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const [myApartments, setMyApartments] = useState<Apartment[]>([
     {
       name: 'Apartment 1',
@@ -36,6 +38,14 @@ const AddApartment: FC = () => {
 
   return (
     <div style={{ display: 'flex' }}>
+      {isFormOpen && (
+        <AddApartmentForm
+          onClose={() => {
+            setIsFormOpen(false);
+          }}
+        />
+      )}
+
       {myApartments.map((apartment, index) => {
         return (
           <Box
@@ -72,6 +82,7 @@ const AddApartment: FC = () => {
           height: 300,
           marginInline: 8,
         }}
+        onClick={() => setIsFormOpen(true)}
       >
         <AddIcon />
       </Box>
@@ -79,4 +90,4 @@ const AddApartment: FC = () => {
   );
 };
 
-export default AddApartment;
+export default Apartments;
