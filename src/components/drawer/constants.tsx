@@ -18,7 +18,7 @@ export const primaryItems: DrawerItem[] = [
   {
     title: 'Add your flat',
     icon: <AddHomeIcon />,
-    link: '/add',
+    link: '/apartments',
   },
   {
     title: 'Show on map',
