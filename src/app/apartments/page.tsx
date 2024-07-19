@@ -1,17 +1,13 @@
 'use client';
 import { FC, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Paper } from '@mui/material';
-
-export interface Apartment {
-  name: string;
-  location: string;
-  price: number;
-  description: string;
-}
+import { Box, Paper, Typography } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
 import makeStyles from '@mui/styles/makeStyles';
 import AddApartmentForm from './addApartmentForm';
+import { ApartmentInformation } from './apartmentTypes';
+import { mockApartments } from '../mockData';
 
 export const useStyles = makeStyles(() => ({
   cardContainer: {
@@ -25,16 +21,14 @@ export const useStyles = makeStyles(() => ({
 
 const Apartments: FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [myApartments, setMyApartments] = useState<Apartment[]>([
-    {
-      name: 'Apartment 1',
-      location: 'Location 1',
-      price: 1000,
-      description: 'Description 1',
-    },
-  ]);
+  const [apartments, setApartments] = useState<ApartmentInformation[]>(mockApartments);
 
+  const router = useRouter();
   const classes = useStyles();
+
+  const goToDetails = (apartmentId: number): void => {
+    router.push(`apartmentDetails/${apartmentId}`);
+  };
 
   return (
     <div style={{ display: 'flex' }}>
@@ -46,7 +40,7 @@ const Apartments: FC = () => {
         />
       )}
 
-      {myApartments.map((apartment, index) => {
+      {apartments.map((apartment, index) => {
         return (
           <Box
             component={Paper}
@@ -55,17 +49,34 @@ const Apartments: FC = () => {
             style={{
               display: 'flex',
               flexDirection: 'column',
-              justifyContent: 'center',
+              justifyContent: 'space-between',
               alignItems: 'center',
-              width: 200,
-              height: 300,
+              width: 350,
+              height: 400,
               marginInline: 8,
+              padding: 12,
             }}
+            onClick={() => goToDetails(apartment.id)}
           >
-            <h2>{apartment.name}</h2>
-            <p>{apartment.location}</p>
-            <p>{apartment.price}</p>
-            <p>{apartment.description}</p>
+            <Typography variant="h5" color={'purple'}>
+              {apartment.name}
+            </Typography>
+            <div style={{ width: '100%', border: '0.5px dotted purple', paddingTop: 4, paddingBottom: 4 }}>
+              <Typography style={{ textAlign: 'center' }}>location</Typography>
+              <Typography style={{ textAlign: 'center', width: '100%', marginTop: 10 }}>{apartment.location}</Typography>
+            </div>
+            <div style={{ width: '100%', border: '0.5px dotted purple', paddingTop: 4, paddingBottom: 4 }}>
+              <Typography style={{ textAlign: 'center' }}>deposit</Typography>
+              <Typography style={{ textAlign: 'center', width: '100%', marginTop: 10 }}>{apartment.deposit}</Typography>
+            </div>
+            <div style={{ width: '100%', border: '0.5px dotted purple', paddingTop: 4, paddingBottom: 4 }}>
+              <Typography style={{ textAlign: 'center' }}>rent</Typography>
+              <Typography style={{ textAlign: 'center', width: '100%', marginTop: 10 }}>{apartment.rent}</Typography>
+            </div>
+            <div style={{ width: '100%', border: '0.5px dotted purple', paddingTop: 4, paddingBottom: 4 }}>
+              <Typography style={{ textAlign: 'center' }}>description</Typography>
+              <Typography style={{ textAlign: 'center', width: '100%', marginTop: 10 }}>{apartment.description}</Typography>
+            </div>
           </Box>
         );
       })}
@@ -78,8 +89,8 @@ const Apartments: FC = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-          width: 200,
-          height: 300,
+          width: 350,
+          height: 400,
           marginInline: 8,
         }}
         onClick={() => setIsFormOpen(true)}
