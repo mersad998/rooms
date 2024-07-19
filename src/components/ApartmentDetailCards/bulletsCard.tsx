@@ -2,11 +2,24 @@ import { type FC } from 'react';
 import { Typography } from '@mui/material';
 
 import CheckIcon from '@mui/icons-material/Check';
-import { DetailCardContainer } from '../detailCardContainer';
 
 const BulletsCard: FC<{ title: string; bullets: string[] }> = ({ title, bullets = [] }) => {
   return (
-    <DetailCardContainer title={title}>
+    <div style={{ width: '100%' }}>
+      <Typography
+        style={{
+          width: '100%',
+          marginTop: 24,
+          textAlign: 'center',
+          borderTop: '0.5px dotted purple',
+          borderBottom: '0.5px dotted purple',
+          alignSelf: 'center',
+          margin: 'auto',
+        }}
+      >
+        {title}
+      </Typography>
+
       <div
         style={{
           display: 'flex',
@@ -24,7 +37,7 @@ const BulletsCard: FC<{ title: string; bullets: string[] }> = ({ title, bullets 
           </div>
         ))}
       </div>
-    </DetailCardContainer>
+    </div>
   );
 };
 

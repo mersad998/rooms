@@ -13,7 +13,12 @@ const ImageGallery: FC<ImageGalleryProps> = (props) => {
       {Object.keys(images).map((galleryImageKey) => {
         return (
           <DetailCardContainer title={galleryImageKey} key={galleryImageKey}>
-            <ImageList variant="masonry" cols={3} gap={8} style={{ display: 'flex', flexWrap: 'wrap' }}>
+            <ImageList
+              variant="masonry"
+              cols={2}
+              gap={8}
+              style={{ display: 'flex', flexWrap: 'wrap', width: '100%', justifyContent: 'space-around' }}
+            >
               {images[galleryImageKey as keyof RoomImages]?.map((item) => (
                 <ImageListItem
                   key={item.img}

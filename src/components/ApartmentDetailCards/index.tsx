@@ -11,8 +11,8 @@ const ApartmentDetailCards: FC<ApartmentDetailCardsProps> = (props) => {
   return (
     <div>
       <ApartmentInfoCard key={apartment.id} details={apartment} />
-      {apartment.rooms?.map((room) => {
-        return <RoomInfoCard key={room.id} details={room} />;
+      {apartment.rooms?.map((room, idx) => {
+        return <RoomInfoCard key={room.id} roomNumber={idx + 1} details={room} />;
       })}
     </div>
   );

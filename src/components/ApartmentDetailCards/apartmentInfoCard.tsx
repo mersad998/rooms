@@ -33,10 +33,10 @@ const ApartmentInfoCard: FC<{ details: ApartmentInformation }> = ({ details }) =
           </div>
           <div style={{ display: 'flex', flexBasis: '33%' }}>
             <AspectRatioIcon style={{ marginInline: 4, color: '#042f83' }} />
-            <Typography textAlign={'center'}>{`total size: ${details.size} Sq/M`}</Typography>
+            <Typography textAlign={'center'}>{`total size: ${details.size} M/Sq`}</Typography>
           </div>
           <div style={{ display: 'flex', flexBasis: '33%' }}>
-            <StarHalfIcon style={{ marginInline: 4, color: 'gold' }} />
+            <StarHalfIcon style={{ marginInline: 4, color: '#042f83' }} />
             <Typography textAlign={'center'}>{`rate: ${details.rate} / 5`}</Typography>
           </div>
           <div style={{ display: 'flex', flexBasis: '33%' }}>
@@ -59,7 +59,7 @@ const ApartmentInfoCard: FC<{ details: ApartmentInformation }> = ({ details }) =
           </div>
 
           <div style={{ display: 'flex', flexBasis: '100%', marginTop: 16 }}>
-            <DescriptionIcon style={{ marginInline: 4, color: '#042f83' }} />
+            <DescriptionIcon style={{ marginInline: 4, color: 'gray' }} />
             <Typography textAlign={'center'}>{`description: ${details.description}`}</Typography>
           </div>
           <div style={{ display: 'flex', flexBasis: '100%' }}>
