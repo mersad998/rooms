@@ -10,5 +10,6 @@ export interface RoomInformation {
   name: string;
   size: number; // in square meters
   equipment: string;
-  imageUrl: string;
+  interiorImageUrl: string;
+  exteriorImageUrl: string;
 }
