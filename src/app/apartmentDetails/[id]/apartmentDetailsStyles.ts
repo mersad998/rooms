@@ -11,6 +11,7 @@ export const useStyles = makeStyles(() => ({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: 8,
   },
   cardsContainer: {
     flex: 2,
