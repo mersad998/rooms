@@ -1,16 +1,17 @@
 'use client';
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
-import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper, TextField } from '@mui/material';
+import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
 import { Dialog } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Apartment } from './page';
+import { ApartmentInformation } from './apartmentTypes';
 
-const AddApartmentForm: FC<any> = ({ onClose }) => {
-  const { register, handleSubmit } = useForm<Apartment>();
+const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
+  const { register, handleSubmit } = useForm<ApartmentInformation>();
 
-  const onSubmit: SubmitHandler<Apartment> = (formData) => {
-    console.log('formData: ', formData);
+  const onSubmit: SubmitHandler<ApartmentInformation> = (formData) => {
+    console.log('formData: ', formData); // todo: send to API
+    onClose();
   };
 
   return (
@@ -48,12 +49,23 @@ const AddApartmentForm: FC<any> = ({ onClose }) => {
           variant="standard"
         />
         <TextField
-          {...register('price', {})}
+          {...register('deposit', {})}
           margin="dense"
           required
-          id="price"
-          name="price"
-          label="price"
+          id="deposit"
+          name="deposit"
+          label="deposit"
+          fullWidth
+          variant="standard"
+          type="number"
+        />
+        <TextField
+          {...register('rent', {})}
+          margin="dense"
+          required
+          id="rent"
+          name="rent"
+          label="rent"
           fullWidth
           variant="standard"
           type="number"
