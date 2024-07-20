@@ -3,26 +3,31 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions } from '@mui/material';
+import { Button, CardActionArea, CardActions, Rating } from '@mui/material';
+import { ApartmentInformation } from '@/app/apartments/apartmentTypes';
 
-const ApartmentCard: React.FC = () => {
+const ApartmentCard: React.FC<Partial<ApartmentInformation>> = (props) => {
+  const { name, rate = 0, description } = props;
   return (
     <Card sx={{ maxWidth: 400, margin: 'auto' }}>
       <CardActionArea>
         <CardMedia component="img" height="140" image="assets/images/default-photo.png" alt="green iguana" />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            Lizard
-          </Typography>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Typography gutterBottom variant="h5" component="div">
+              {name}
+            </Typography>
+            <Rating name="read-only" value={rate} readOnly />
+          </div>
+
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except
-            Antarctica
+            {description}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
-          Share
+          Show Details
         </Button>
       </CardActions>
     </Card>
