@@ -17,4 +17,12 @@ export interface DetailCardContainerProps {
    * if you pass this parameter, header title color will change
    */
   titleColor?: string;
+  /**
+   * if you pass this parameter, pen icon will appear
+   */
+  onEditClick?: (id?: number) => void;
+  /**
+   * it will pass to onEditClick
+   */
+  id?: number;
 }

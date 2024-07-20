@@ -1,21 +1,24 @@
 import React, { type FC } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
 
 import { useStyles } from './detailCardContainerStyles';
 
 import type { DetailCardContainerProps } from './detailCardContainerTypes';
 
-const DetailCardContainer: FC<DetailCardContainerProps> = ({ title, key, children, titleColor }) => {
+const DetailCardContainer: FC<DetailCardContainerProps> = ({ id, title, key, children, titleColor, onEditClick }) => {
   const classes = useStyles();
 
   return (
-    <Box component={Paper} padding={1} marginTop={1} key={`${key}_${title}`}>
+    <Box component={Paper} padding={1} marginTop={1} key={`${key}_${title}`} className={classes.box}>
       <Typography
         textAlign={'center'}
         borderBottom={'1px dashed #2a81c1'}
         variant={titleColor ? 'h6' : 'body1'}
         color={titleColor}
+        position="relative"
       >
+        {onEditClick && <EditIcon className={classes.editIcon} onClick={() => onEditClick(id)} />}
         {title}
       </Typography>
 
