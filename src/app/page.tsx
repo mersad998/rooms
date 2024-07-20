@@ -16,7 +16,10 @@ const HomePage: FC = () => {
 
   return (
     <div>
-      <ResponsiveGrid list={mockApartments} component={<ApartmentCard onCardClick={onCardClick} />} />
+      <ResponsiveGrid
+        list={mockApartments as unknown as Record<string, unknown>[]}
+        component={<ApartmentCard onCardClick={onCardClick} />}
+      />
     </div>
   );
 };

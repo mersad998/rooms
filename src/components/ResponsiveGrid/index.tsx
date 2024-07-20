@@ -1,8 +1,8 @@
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
-import { cloneElement, FC } from 'react';
+import { cloneElement, FC, ReactElement } from 'react';
 
-const ResponsiveGrid: FC<any> = (props) => {
+const ResponsiveGrid: FC<{ list: Record<string, unknown>[]; component: ReactElement }> = (props) => {
   const { list = [], component } = props;
 
   return (
