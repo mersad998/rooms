@@ -1,15 +1,34 @@
 'use client';
-import { FC } from 'react';
+import { FC, useRef, useState } from 'react';
 
 import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
 import { Dialog } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ApartmentInformation } from './apartmentTypes';
 
-const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
-  const { register, handleSubmit } = useForm<ApartmentInformation>();
+type ApartmentFormData = Omit<ApartmentInformation, 'ImageUrl'> & {
+  ImageUrl: File;
+};
 
-  const onSubmit: SubmitHandler<ApartmentInformation> = (formData) => {
+const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
+  const { register, handleSubmit, setValue } = useForm<ApartmentFormData>();
+
+  const [imageName, setImageName] = useState('');
+  const imageInput = useRef<HTMLInputElement>(null);
+
+  const handleImageClick = (): void => {
+    imageInput.current?.click();
+  };
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const file = event.target.files[0];
+      setImageName(file.name);
+      setValue('ImageUrl', file);
+    }
+  };
+
+  const onSubmit: SubmitHandler<ApartmentFormData> = (formData) => {
     console.log('formData: ', formData); // todo: send to API
     onClose();
   };
@@ -102,15 +121,28 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
           fullWidth
           variant="standard"
         />
+
         <TextField
-          {...register('ImageUrl', {})}
           margin="dense"
           required
-          id="ImageUrl"
-          name="ImageUrl"
-          label="apartment image"
+          label="exterior image"
+          placeholder="click here to select image"
           fullWidth
           variant="standard"
+          value={imageName}
+          onClick={handleImageClick}
+          InputProps={{
+            readOnly: true,
+          }}
+        />
+        <input
+          {...register('ImageUrl', {})}
+          id="exteriorImageUrl"
+          name="exteriorImageUrl"
+          ref={imageInput}
+          style={{ display: 'none' }}
+          type="file"
+          onChange={handleImageChange}
         />
       </DialogContent>
       <DialogActions>
