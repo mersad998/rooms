@@ -1,6 +1,7 @@
 'use client';
 
-import React, { type FC, memo } from 'react';
+import React, { type FC, memo, useState } from 'react';
+import AddIcon from '@mui/icons-material/Add';
 // import ImageGallery from '@/components/imageGallery';
 // import { getApartmentImages } from '@/components/imageGallery/helper';
 
@@ -8,17 +9,20 @@ import { useStyles } from './apartmentDetailsStyles';
 
 import type { ApartmentDetailsProps } from './apartmentDetailsTypes';
 
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import ApartmentDetailsSkeleton from '@/app/ui/skeletons/apartmentDetails';
 import useApartmentDetails from '../hooks/useApartmentDetails';
 import ApartmentDetailCards from '@/components/ApartmentDetailCards';
 import ImageGallery from '@/components/imageGallery';
 import { getApartmentImages } from '@/components/imageGallery/helper';
+import { DetailCardContainer } from '@/components/detailCardContainer';
+import AddRoomForm from './addRoomForm';
 
 const ApartmentDetails: FC<ApartmentDetailsProps> = (props) => {
   const { id } = props.params;
 
   const [isLoading, apartmentDetails] = useApartmentDetails(id);
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const classes = useStyles();
 
   if (isLoading) {
@@ -39,11 +43,40 @@ const ApartmentDetails: FC<ApartmentDetailsProps> = (props) => {
 
   return (
     <div className={classes.container}>
+      {isFormOpen && (
+        <AddRoomForm
+          onClose={() => {
+            setIsFormOpen(false);
+          }}
+        />
+      )}
+
       <div className={classes.imagesContainer}>
         {apartmentDetails && <ImageGallery images={getApartmentImages(apartmentDetails.rooms ?? [])} />}
       </div>
 
-      <div className={classes.cardsContainer}>{apartmentDetails && <ApartmentDetailCards apartment={apartmentDetails} />}</div>
+      <div className={classes.cardsContainer}>
+        {apartmentDetails && <ApartmentDetailCards apartment={apartmentDetails} />}
+        <DetailCardContainer title={`Add new room`} titleColor="#042f83">
+          <div
+            className={classes.addCard}
+            style={{
+              border: '1px dashed gray',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%',
+              height: 60,
+              marginInline: 8,
+              marginTop: 20,
+              marginBottom: 20,
+            }}
+            onClick={() => setIsFormOpen(true)}
+          >
+            <AddIcon />
+          </div>
+        </DetailCardContainer>
+      </div>
     </div>
   );
 };

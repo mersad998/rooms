@@ -14,7 +14,7 @@ export const useStyles = makeStyles(() => ({
     '&:hover ': {
       color: 'rgba(0,24,96,0.7)',
       boxShadow: '0 0 5px rgba(48,125,193,1)',
-      textShadow: '0 0 1px rgba(12,92,174,1)',
+      border: 'unset !important',
     },
   },
 }));
