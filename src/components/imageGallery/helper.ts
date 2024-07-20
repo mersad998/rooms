@@ -5,7 +5,7 @@ export const getApartmentImages = (rooms: ApartmentInformation['rooms'], mainIma
   const images: RoomImages = {};
 
   if (mainImage) {
-    images.apartment = [{ title: 'apartment', img: mainImage }];
+    images.apartment = [{ title: 'main view', img: mainImage }];
   }
 
   rooms?.forEach((room) => {
