@@ -71,6 +71,28 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
           type="number"
         />
         <TextField
+          {...register('roomNumber', {})}
+          margin="dense"
+          required
+          id="roomNumber"
+          name="roomNumber"
+          label="roomNumber"
+          fullWidth
+          variant="standard"
+          type="number"
+        />
+        <TextField
+          {...register('size', {})}
+          margin="dense"
+          required
+          id="size"
+          name="size"
+          label="size"
+          fullWidth
+          variant="standard"
+          type="number"
+        />
+        <TextField
           {...register('description', {})}
           margin="dense"
           required

@@ -1,7 +1,7 @@
 'use client';
-import { FC, useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Button, Paper, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
 import makeStyles from '@mui/styles/makeStyles';
@@ -30,8 +30,15 @@ const Apartments: FC = () => {
     router.push(`apartmentDetails/${apartmentId}`);
   };
 
+  const onDeleteClick = (event: FormEvent<HTMLButtonElement>): void => {
+    event.stopPropagation();
+  };
+  const onEditClick = (event: FormEvent<HTMLButtonElement>): void => {
+    event.stopPropagation();
+  };
+
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {isFormOpen && (
         <AddApartmentForm
           onClose={() => {
@@ -52,30 +59,40 @@ const Apartments: FC = () => {
               justifyContent: 'space-between',
               alignItems: 'center',
               width: 350,
-              height: 400,
+              height: 300,
               marginInline: 8,
               padding: 12,
+              marginTop: 8,
             }}
             onClick={() => goToDetails(apartment.id)}
           >
             <Typography variant="h5" color={'purple'}>
               {apartment.name}
             </Typography>
-            <div style={{ width: '100%', border: '0.5px dotted purple', paddingTop: 4, paddingBottom: 4 }}>
-              <Typography style={{ textAlign: 'center' }}>location</Typography>
-              <Typography style={{ textAlign: 'center', width: '100%', marginTop: 10 }}>{apartment.location}</Typography>
+            <div style={{ width: '100%', display: 'flex', paddingTop: 4, paddingBottom: 4 }}>
+              <Typography style={{ fontSize: '13px', fontWeight: 'bold' }}>location:</Typography>
+              <Typography style={{ fontSize: '13px', width: '100%', marginLeft: 8 }}>{apartment.location}</Typography>
             </div>
-            <div style={{ width: '100%', border: '0.5px dotted purple', paddingTop: 4, paddingBottom: 4 }}>
-              <Typography style={{ textAlign: 'center' }}>deposit</Typography>
-              <Typography style={{ textAlign: 'center', width: '100%', marginTop: 10 }}>{apartment.deposit}</Typography>
+            <div style={{ width: '100%', display: 'flex', paddingTop: 4, paddingBottom: 4 }}>
+              <Typography style={{ fontSize: '13px', fontWeight: 'bold' }}>deposit:</Typography>
+              <Typography style={{ fontSize: '13px', width: '100%', marginLeft: 8 }}>{apartment.deposit}</Typography>
             </div>
-            <div style={{ width: '100%', border: '0.5px dotted purple', paddingTop: 4, paddingBottom: 4 }}>
-              <Typography style={{ textAlign: 'center' }}>rent</Typography>
-              <Typography style={{ textAlign: 'center', width: '100%', marginTop: 10 }}>{apartment.rent}</Typography>
+            <div style={{ width: '100%', display: 'flex', paddingTop: 4, paddingBottom: 4 }}>
+              <Typography style={{ fontSize: '13px', fontWeight: 'bold' }}>rent:</Typography>
+              <Typography style={{ fontSize: '13px', width: '100%', marginLeft: 8 }}>{apartment.rent}</Typography>
             </div>
-            <div style={{ width: '100%', border: '0.5px dotted purple', paddingTop: 4, paddingBottom: 4 }}>
-              <Typography style={{ textAlign: 'center' }}>description</Typography>
-              <Typography style={{ textAlign: 'center', width: '100%', marginTop: 10 }}>{apartment.description}</Typography>
+            <div style={{ width: '100%', display: 'flex', paddingTop: 4, paddingBottom: 4 }}>
+              <Typography style={{ fontSize: '13px', fontWeight: 'bold' }}>description:</Typography>
+              <Typography style={{ fontSize: '13px', width: '100%', marginLeft: 8 }}>{apartment.description}</Typography>
+            </div>
+
+            <div style={{ display: 'flex', width: '100%', borderTop: '1px purple dotted' }}>
+              <Button style={{ display: 'flex' }} onClick={onDeleteClick} color="error">
+                <Typography variant="body2">Delete</Typography>
+              </Button>
+              <Button style={{ display: 'flex' }} onClick={onEditClick}>
+                <Typography variant="body2">Edit</Typography>
+              </Button>
             </div>
           </Box>
         );
@@ -90,8 +107,9 @@ const Apartments: FC = () => {
           justifyContent: 'center',
           alignItems: 'center',
           width: 350,
-          height: 400,
+          height: 300,
           marginInline: 8,
+          marginTop: 8,
         }}
         onClick={() => setIsFormOpen(true)}
       >
