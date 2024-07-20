@@ -12,4 +12,5 @@ export interface ApartmentInformation {
   rate: number;
   size: number;
   rooms?: RoomInformation[];
+  ImageUrl?: string;
 }

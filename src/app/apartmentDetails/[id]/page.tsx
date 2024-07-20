@@ -2,14 +2,12 @@
 
 import React, { type FC, memo, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
-// import ImageGallery from '@/components/imageGallery';
-// import { getApartmentImages } from '@/components/imageGallery/helper';
 
 import { useStyles } from './apartmentDetailsStyles';
 
 import type { ApartmentDetailsProps } from './apartmentDetailsTypes';
 
-import { Box, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import ApartmentDetailsSkeleton from '@/app/ui/skeletons/apartmentDetails';
 import useApartmentDetails from '../hooks/useApartmentDetails';
 import ApartmentDetailCards from '@/components/ApartmentDetailCards';
@@ -52,7 +50,9 @@ const ApartmentDetails: FC<ApartmentDetailsProps> = (props) => {
       )}
 
       <div className={classes.imagesContainer}>
-        {apartmentDetails && <ImageGallery images={getApartmentImages(apartmentDetails.rooms ?? [])} />}
+        {apartmentDetails && (
+          <ImageGallery images={getApartmentImages(apartmentDetails.rooms ?? [], apartmentDetails.ImageUrl)} />
+        )}
       </div>
 
       <div className={classes.cardsContainer}>

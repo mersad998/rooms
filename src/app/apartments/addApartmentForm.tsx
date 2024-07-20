@@ -102,6 +102,16 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
           fullWidth
           variant="standard"
         />
+        <TextField
+          {...register('ImageUrl', {})}
+          margin="dense"
+          required
+          id="ImageUrl"
+          name="ImageUrl"
+          label="apartment image"
+          fullWidth
+          variant="standard"
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
