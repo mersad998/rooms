@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { getApartmentRooms } from '@/lib/features/apartments/apartmentsApi';
-import { BASE_URL } from '@/app/constants';
 import { mockApartments } from '@/app/mockData';
 import { ApartmentInformation } from '@/app/apartments/apartmentTypes';
 
@@ -26,7 +25,7 @@ const useApartmentDetails = (apartmentId: string): [boolean, ApartmentInformatio
       await fakeDelay(1000);
       const apartmentData = mockApartments[0]; // todo: get from Redux or fetch from api
 
-      const rooms = await getApartmentRooms(`${BASE_URL}/apartment/${apartmentId}`);
+      const rooms = await getApartmentRooms(apartmentId);
 
       setIsLoading(false);
       setApartmentDetails({ ...apartmentData, rooms: rooms ?? [] });
