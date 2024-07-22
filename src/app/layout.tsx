@@ -7,6 +7,7 @@ import FullLayoutSkeleton from './ui/skeletons/fullLayoutSkeleton';
 import { Drawer } from '@/components/drawer';
 
 import type { RootLayoutProps } from './globalTypes';
+import { StoreProvider } from './StoreProvider';
 
 // handle fonts
 const inter = Inter({ subsets: ['latin'] });
@@ -18,14 +19,16 @@ export const metadata: Metadata = {
 
 const RootLayout = (props: Readonly<RootLayoutProps>): React.ReactNode => {
   return (
-    <html lang="en">
-      <body className={`${inter.className}`}>
-        {/* wrap drawer on all pages */}
-        <Drawer>
-          <Suspense fallback={<FullLayoutSkeleton />}>{props.children}</Suspense>
-        </Drawer>
-      </body>
-    </html>
+    <StoreProvider>
+      <html lang="en">
+        <body className={`${inter.className}`}>
+          {/* wrap drawer on all pages */}
+          <Drawer>
+            <Suspense fallback={<FullLayoutSkeleton />}>{props.children}</Suspense>
+          </Drawer>
+        </body>
+      </html>
+    </StoreProvider>
   );
 };
 
