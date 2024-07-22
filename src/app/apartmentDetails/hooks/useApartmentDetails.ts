@@ -1,40 +1,22 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { getApartmentRooms } from '@/lib/features/apartments/apartmentsApi';
-import { mockApartments } from '@/app/mockData';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchApartmentDetails, isLoadingApartments, selectApartmentDetails } from '@/lib/features/apartments/apartmentsSlice';
 import { ApartmentInformation } from '@/app/apartments/apartmentTypes';
 
-// you can pass any number to this function to show loading
-const fakeDelay = (delay: number): Promise<void> => {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay);
-  });
-};
-
 const useApartmentDetails = (apartmentId: string): [boolean, ApartmentInformation | undefined] => {
-  const [apartmentDetails, setApartmentDetails] = useState<ApartmentInformation>();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const dispatch = useDispatch();
+  const apartmentDetails = useSelector(selectApartmentDetails);
+  const isLoading = useSelector(isLoadingApartments);
 
   useEffect(() => {
-    prepareData();
-  }, [apartmentId]);
-
-  const prepareData = async (): Promise<void> => {
-    try {
-      await fakeDelay(1000);
-      const apartmentData = mockApartments[0]; // todo: get from Redux or fetch from api
-
-      const rooms = await getApartmentRooms(apartmentId);
-
-      setIsLoading(false);
-      setApartmentDetails({ ...apartmentData, rooms: rooms ?? [] });
-    } catch (error) {
-      setIsLoading(false);
+    if (apartmentId) {
+      dispatch((fetchApartmentDetails as any)(apartmentId));
     }
-  };
+  }, [apartmentId, dispatch]);
 
-  return [isLoading, apartmentDetails];
+  return [isLoading, apartmentDetails as ApartmentInformation | undefined];
 };
 
 export default useApartmentDetails;
