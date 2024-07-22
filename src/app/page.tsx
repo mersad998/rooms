@@ -4,11 +4,13 @@ import ApartmentCard from '@/components/apartmentCard';
 import ResponsiveGrid from '@/components/ResponsiveGrid';
 
 import { FC } from 'react';
-import { mockApartments } from './mockData';
 import { useRouter } from 'next/navigation';
+import useApartments from './hooks/useApartments';
 
 const HomePage: FC = () => {
   const router = useRouter();
+
+  const [isLoading, apartments] = useApartments();
 
   const onCardClick = (apartmentId: number): void => {
     router.push(`apartmentDetails/${apartmentId}`);
@@ -17,7 +19,7 @@ const HomePage: FC = () => {
   return (
     <div>
       <ResponsiveGrid
-        list={mockApartments as unknown as Record<string, unknown>[]}
+        list={(apartments as unknown as Record<string, unknown>[]) ?? []}
         component={<ApartmentCard onCardClick={onCardClick} />}
       />
     </div>
