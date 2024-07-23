@@ -232,7 +232,7 @@ export const {
   updateRoomAction,
   deleteRoomAction,
   setParametersAction,
-} = apartmentsSlice.actions;
+} = apartmentsSlice.actions as any;
 
 // Export selectors
 export const { selectApartments, selectApartmentDetails, getParameters, isLoadingApartments } = apartmentsSlice.selectors;

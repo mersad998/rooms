@@ -7,6 +7,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { ApartmentInformation } from './apartmentTypes';
 import { createApartmentAction } from '@/lib/features/apartments/apartmentsSlice';
 import { useDispatch } from 'react-redux';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 type ApartmentFormData = Omit<ApartmentInformation, 'imageUrl'> & {
   imageUrl: File;
@@ -30,14 +31,13 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
     }
   };
 
-  // In the AddApartmentForm component
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<void, void, AnyAction>>();
 
   const onSubmit: SubmitHandler<ApartmentFormData> = async (formData) => {
     try {
       // Dispatch the createApartment action
       await dispatch(
-        (createApartmentAction as any)({
+        createApartmentAction({
           ...formData,
           imageUrl: formData.imageUrl.name,
         }),

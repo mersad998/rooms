@@ -46,6 +46,7 @@ const ApartmentDetails: FC<ApartmentDetailsProps> = (props) => {
           onClose={() => {
             setIsFormOpen(false);
           }}
+          apartmentId={id}
         />
       )}
 

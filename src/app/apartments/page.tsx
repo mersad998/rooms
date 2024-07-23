@@ -37,9 +37,6 @@ const Apartments: FC = () => {
     event.stopPropagation();
   };
 
-  if (!apartments) return <p>Loading... </p>;
-  console.log('apartments: ', apartments);
-
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {isFormOpen && (

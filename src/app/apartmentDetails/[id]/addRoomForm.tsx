@@ -5,13 +5,16 @@ import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, T
 import { Dialog } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { RoomInformation } from './apartmentDetailsTypes';
+import { createRoomAction } from '@/lib/features/apartments/apartmentsSlice';
+import { useDispatch } from 'react-redux';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
 type RoomFormData = Omit<RoomInformation, 'interiorImageUrl' | 'exteriorImageUrl'> & {
   interiorImageUrl: File;
   exteriorImageUrl: File;
 };
 
-const AddRoomForm: FC<{ onClose: () => void }> = ({ onClose }) => {
+const AddRoomForm: FC<{ onClose: () => void; apartmentId: string }> = ({ onClose, apartmentId }) => {
   const { register, handleSubmit, setValue } = useForm<RoomFormData>();
   const [interiorImageName, setInteriorImageName] = useState('');
   const [exteriorImageName, setExteriorImageName] = useState('');
@@ -19,9 +22,18 @@ const AddRoomForm: FC<{ onClose: () => void }> = ({ onClose }) => {
   const interiorImageInput = useRef<HTMLInputElement>(null);
   const exteriorImageInput = useRef<HTMLInputElement>(null);
 
-  const onSubmit: SubmitHandler<RoomFormData> = (formData) => {
-    console.log('formData: ', formData); // todo: send to API
-    onClose();
+  const dispatch = useDispatch<ThunkDispatch<void, void, AnyAction>>();
+
+  const onSubmit: SubmitHandler<RoomFormData> = async (formData) => {
+    try {
+      // Dispatch the createRoom action
+      await dispatch(
+        createRoomAction({ ...formData, apartmentId, interiorImageUrl: '', exteriorImageUrl: 'interiorImageUrl' }),
+      ).unwrap(); // Unwrap the result to handle any errors
+      onClose();
+    } catch (error) {
+      console.error('Failed to create room:', error);
+    }
   };
 
   const handleInteriorImageClick = (): void => {

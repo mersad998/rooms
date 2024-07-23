@@ -54,7 +54,8 @@ export type Database = {
           createdAt: string;
           equipment: string | null;
           id: string;
-          imageUrl: string | null;
+          interiorImageUrl: string | null;
+          exteriorImageUrl: string | null;
           name: string | null;
           size: number | null;
         };
@@ -63,7 +64,8 @@ export type Database = {
           createdAt?: string;
           equipment?: string | null;
           id?: string;
-          imageUrl?: string | null;
+          interiorImageUrl?: string | null;
+          exteriorImageUrl?: string | null;
           name?: string | null;
           size?: number | null;
         };
@@ -72,7 +74,8 @@ export type Database = {
           createdAt?: string;
           equipment?: string | null;
           id?: string;
-          imageUrl?: string | null;
+          interiorImageUrl?: string | null;
+          exteriorImageUrl?: string | null;
           name?: string | null;
           size?: number | null;
         };
