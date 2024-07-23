@@ -5,7 +5,7 @@ import { Apartment, Room } from '../../supabaseTypes';
 
 // Create an apartment
 export const createApartment = async (apartment: Omit<Apartment, 'id'>): Promise<Apartment> => {
-  const { data, error } = await supabase.from('apartments').insert([apartment]).single();
+  const { data, error } = await supabase.from('apartments').insert([apartment]).select().single();
 
   if (error) {
     throw new Error(error.message);
@@ -38,7 +38,7 @@ export const getApartmentById = async (id: string): Promise<Apartment> => {
 
 // Update an apartment
 export const updateApartment = async (id: string, updates: Partial<Apartment>): Promise<Apartment> => {
-  const { data, error } = await supabase.from('apartments').update(updates).eq('id', id).single();
+  const { data, error } = await supabase.from('apartments').update(updates).eq('id', id).select().single();
 
   if (error) {
     throw new Error(error.message);
@@ -60,7 +60,7 @@ export const deleteApartment = async (id: string): Promise<void> => {
 
 // Create a room
 export const createRoom = async (room: Omit<Room, 'id'>): Promise<Room> => {
-  const { data, error } = await supabase.from('rooms').insert([room]).single();
+  const { data, error } = await supabase.from('rooms').insert([room]).select().single();
 
   if (error) {
     throw new Error(error.message);
@@ -82,7 +82,7 @@ export const getRoomsByApartmentId = async (apartmentId: string): Promise<Room[]
 
 // Update a room
 export const updateRoom = async (id: string, updates: Partial<Room>): Promise<Room> => {
-  const { data, error } = await supabase.from('rooms').update(updates).eq('id', id).single();
+  const { data, error } = await supabase.from('rooms').update(updates).eq('id', id).select().single();
 
   if (error) {
     throw new Error(error.message);

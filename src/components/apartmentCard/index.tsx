@@ -7,11 +7,11 @@ import { Button, CardActionArea, CardActions, Rating } from '@mui/material';
 import { ApartmentInformation } from '@/app/apartments/apartmentTypes';
 
 const ApartmentCard: React.FC<Partial<ApartmentInformation>> = (props) => {
-  const { name, rate = 0, description, ImageUrl, onCardClick, id } = props;
+  const { name, rate = 0, description, imageUrl, onCardClick, id } = props;
   return (
     <Card sx={{ maxWidth: 400, margin: 'auto' }}>
       <CardActionArea onClick={() => onCardClick!(id!)}>
-        <CardMedia component="img" height="140" image={ImageUrl ?? 'assets/images/default-photo.png'} alt="apartment image" />
+        <CardMedia component="img" height="140" image={imageUrl ?? 'assets/images/default-photo.png'} alt="apartment image" />
         <CardContent>
           <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography gutterBottom variant="h5" component="div">

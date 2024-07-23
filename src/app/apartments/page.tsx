@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import makeStyles from '@mui/styles/makeStyles';
 import AddApartmentForm from './addApartmentForm';
 import { ApartmentInformation } from './apartmentTypes';
-import { mockApartments } from '../mockData';
+import useApartments from '../hooks/useApartments';
 
 export const useStyles = makeStyles(() => ({
   cardContainer: {
@@ -21,7 +21,7 @@ export const useStyles = makeStyles(() => ({
 
 const Apartments: FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [apartments, setApartments] = useState<ApartmentInformation[]>(mockApartments);
+  const [isLoading, apartments] = useApartments();
 
   const router = useRouter();
   const classes = useStyles();
@@ -37,6 +37,9 @@ const Apartments: FC = () => {
     event.stopPropagation();
   };
 
+  if (!apartments) return <p>Loading... </p>;
+  console.log('apartments: ', apartments);
+
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {isFormOpen && (
@@ -47,7 +50,9 @@ const Apartments: FC = () => {
         />
       )}
 
-      {apartments.map((apartment, index) => {
+      {(apartments ?? []).map((apartment, index) => {
+        if (!apartment) return <></>;
+
         return (
           <Box
             component={Paper}

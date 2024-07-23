@@ -5,9 +5,11 @@ import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, T
 import { Dialog } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { ApartmentInformation } from './apartmentTypes';
+import { createApartmentAction } from '@/lib/features/apartments/apartmentsSlice';
+import { useDispatch } from 'react-redux';
 
-type ApartmentFormData = Omit<ApartmentInformation, 'ImageUrl'> & {
-  ImageUrl: File;
+type ApartmentFormData = Omit<ApartmentInformation, 'imageUrl'> & {
+  imageUrl: File;
 };
 
 const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
@@ -24,13 +26,26 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       setImageName(file.name);
-      setValue('ImageUrl', file);
+      setValue('imageUrl', file);
     }
   };
 
-  const onSubmit: SubmitHandler<ApartmentFormData> = (formData) => {
-    console.log('formData: ', formData); // todo: send to API
-    onClose();
+  // In the AddApartmentForm component
+  const dispatch = useDispatch();
+
+  const onSubmit: SubmitHandler<ApartmentFormData> = async (formData) => {
+    try {
+      // Dispatch the createApartment action
+      await dispatch(
+        (createApartmentAction as any)({
+          ...formData,
+          imageUrl: formData.imageUrl.name,
+        }),
+      ).unwrap(); // Unwrap the result to handle any errors
+      onClose();
+    } catch (error) {
+      console.error('Failed to create apartment:', error);
+    }
   };
 
   return (
@@ -136,7 +151,7 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
           }}
         />
         <input
-          {...register('ImageUrl', {})}
+          {...register('imageUrl', {})}
           id="exteriorImageUrl"
           name="exteriorImageUrl"
           ref={imageInput}

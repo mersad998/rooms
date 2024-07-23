@@ -51,7 +51,7 @@ const ApartmentDetails: FC<ApartmentDetailsProps> = (props) => {
 
       <div className={classes.imagesContainer}>
         {apartmentDetails && (
-          <ImageGallery images={getApartmentImages(apartmentDetails.rooms ?? [], apartmentDetails.ImageUrl)} />
+          <ImageGallery images={getApartmentImages(apartmentDetails.rooms ?? [], apartmentDetails.imageUrl)} />
         )}
       </div>
 

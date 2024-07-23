@@ -12,7 +12,7 @@ export const mockApartments: ApartmentInformation[] = [
     rate: 4,
     roomNumber: 2,
     size: 65,
-    ImageUrl: 'https://www.friends-in-flats.com/assets/img/bg-building-1.jpg',
+    imageUrl: 'https://www.friends-in-flats.com/assets/img/bg-building-1.jpg',
     rooms: [
       {
         id: 1,
@@ -95,7 +95,7 @@ export const mockApartments: ApartmentInformation[] = [
     rate: 5,
     roomNumber: 1,
     size: 50,
-    ImageUrl: 'https://www.friends-in-flats.com/assets/img/bg-building-1.jpg',
+    imageUrl: 'https://www.friends-in-flats.com/assets/img/bg-building-1.jpg',
     rooms: [
       {
         id: 1,

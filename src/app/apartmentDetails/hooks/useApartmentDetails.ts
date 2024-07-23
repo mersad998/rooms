@@ -2,7 +2,11 @@
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchApartmentDetails, isLoadingApartments, selectApartmentDetails } from '@/lib/features/apartments/apartmentsSlice';
+import {
+  fetchApartmentDetailsAction,
+  isLoadingApartments,
+  selectApartmentDetails,
+} from '@/lib/features/apartments/apartmentsSlice';
 import { ApartmentInformation } from '@/app/apartments/apartmentTypes';
 
 const useApartmentDetails = (apartmentId: string): [boolean, ApartmentInformation | undefined] => {
@@ -12,7 +16,7 @@ const useApartmentDetails = (apartmentId: string): [boolean, ApartmentInformatio
 
   useEffect(() => {
     if (apartmentId) {
-      dispatch((fetchApartmentDetails as any)(apartmentId));
+      dispatch((fetchApartmentDetailsAction as any)(apartmentId));
     }
   }, [apartmentId, dispatch]);
 

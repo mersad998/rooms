@@ -13,6 +13,6 @@ export interface ApartmentInformation {
   size: number;
   onCardClick?: (apartmentId: number) => void;
   rooms?: RoomInformation[];
-  ImageUrl?: string;
+  imageUrl?: string;
   createdBy?: number;
 }
