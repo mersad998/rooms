@@ -8,6 +8,7 @@ import { RoomInformation } from './apartmentDetailsTypes';
 import { createRoomAction } from '@/lib/features/apartments/apartmentsSlice';
 import { useDispatch } from 'react-redux';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { uploadImage } from '@/lib/features/apartments/apartmentsApi';
 
 type RoomFormData = Omit<RoomInformation, 'interiorImageUrl' | 'exteriorImageUrl'> & {
   interiorImageUrl: File;
@@ -26,9 +27,17 @@ const AddRoomForm: FC<{ onClose: () => void; apartmentId: string }> = ({ onClose
 
   const onSubmit: SubmitHandler<RoomFormData> = async (formData) => {
     try {
+      const _interiorImageUrl = await uploadImage(formData.interiorImageUrl);
+      const _exteriorImageUrl = await uploadImage(formData.interiorImageUrl);
+
       // Dispatch the createRoom action
       await dispatch(
-        createRoomAction({ ...formData, apartmentId, interiorImageUrl: '', exteriorImageUrl: 'interiorImageUrl' }),
+        createRoomAction({
+          ...formData,
+          apartmentId,
+          interiorImageUrl: _interiorImageUrl,
+          exteriorImageUrl: _exteriorImageUrl,
+        }),
       ).unwrap(); // Unwrap the result to handle any errors
       onClose();
     } catch (error) {

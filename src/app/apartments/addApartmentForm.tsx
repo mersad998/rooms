@@ -8,6 +8,7 @@ import { ApartmentInformation } from './apartmentTypes';
 import { createApartmentAction } from '@/lib/features/apartments/apartmentsSlice';
 import { useDispatch } from 'react-redux';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
+import { uploadImage } from '@/lib/features/apartments/apartmentsApi';
 
 type ApartmentFormData = Omit<ApartmentInformation, 'imageUrl'> & {
   imageUrl: File;
@@ -35,11 +36,13 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
 
   const onSubmit: SubmitHandler<ApartmentFormData> = async (formData) => {
     try {
+      const imageUrl = await uploadImage(formData.imageUrl);
+
       // Dispatch the createApartment action
       await dispatch(
         createApartmentAction({
           ...formData,
-          imageUrl: formData.imageUrl.name,
+          imageUrl: imageUrl,
         }),
       ).unwrap(); // Unwrap the result to handle any errors
       onClose();

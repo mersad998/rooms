@@ -99,3 +99,15 @@ export const deleteRoom = async (id: string): Promise<void> => {
     throw new Error(error.message);
   }
 };
+
+export const uploadImage = async (file: File): Promise<string> => {
+  const path = `images/${file.name}-${Date.now()}`;
+  const { error } = await supabase.storage.from('rooms').upload(path, file);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  const publicUrl = supabase.storage.from('rooms').getPublicUrl(path).data.publicUrl;
+  return publicUrl;
+};
