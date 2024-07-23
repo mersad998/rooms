@@ -29,7 +29,7 @@ const ApartmentInfoCard: FC<{ details: ApartmentInformation }> = ({ details }) =
         >
           <div style={{ display: 'flex', flexBasis: '33%' }}>
             <FingerprintIcon style={{ marginInline: 4, color: '#042f83' }} />
-            <Typography textAlign={'center'}>{`file number: ${details.id}`}</Typography>
+            <Typography textAlign={'center'}>{`file number: ${String(details.id).slice(0, 8)}`}</Typography>
           </div>
           <div style={{ display: 'flex', flexBasis: '33%' }}>
             <AspectRatioIcon style={{ marginInline: 4, color: '#042f83' }} />

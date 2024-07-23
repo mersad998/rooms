@@ -22,6 +22,10 @@ export interface DetailCardContainerProps {
    */
   onEditClick?: (id?: number) => void;
   /**
+   * if you pass this parameter, trash icon will appear
+   */
+  onDeleteClick?: (id?: number) => void;
+  /**
    * it will pass to onEditClick
    */
   id?: number;

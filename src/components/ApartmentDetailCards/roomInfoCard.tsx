@@ -7,13 +7,20 @@ import { DetailCardContainer } from '../detailCardContainer';
 import { RoomInformation } from '@/app/apartmentDetails/[id]/apartmentDetailsTypes';
 import BulletsCard from './bulletsCard';
 
-const RoomInfoCard: FC<{ details: RoomInformation; roomNumber: number; onEditClick: (apartmentId?: number) => void }> = ({
-  details,
-  roomNumber,
-  onEditClick,
-}) => {
+const RoomInfoCard: FC<{
+  details: RoomInformation;
+  roomNumber: number;
+  onEditClick: (apartmentId?: number) => void;
+  onDeleteClick: (apartmentId?: number) => void;
+}> = ({ details, roomNumber, onEditClick, onDeleteClick }) => {
   return (
-    <DetailCardContainer title={`room ${roomNumber}`} id={details.id} titleColor="#042f83" onEditClick={onEditClick}>
+    <DetailCardContainer
+      title={`room ${roomNumber}`}
+      id={details.id}
+      titleColor="#042f83"
+      onEditClick={onEditClick}
+      onDeleteClick={onDeleteClick}
+    >
       <>
         <div
           style={{

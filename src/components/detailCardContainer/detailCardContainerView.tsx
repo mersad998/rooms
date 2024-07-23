@@ -1,12 +1,21 @@
 import React, { type FC } from 'react';
 import { Box, Paper, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { useStyles } from './detailCardContainerStyles';
 
 import type { DetailCardContainerProps } from './detailCardContainerTypes';
 
-const DetailCardContainer: FC<DetailCardContainerProps> = ({ id, title, key, children, titleColor, onEditClick }) => {
+const DetailCardContainer: FC<DetailCardContainerProps> = ({
+  id,
+  title,
+  key,
+  children,
+  titleColor,
+  onEditClick,
+  onDeleteClick,
+}) => {
   const classes = useStyles();
 
   return (
@@ -19,6 +28,7 @@ const DetailCardContainer: FC<DetailCardContainerProps> = ({ id, title, key, chi
         position="relative"
       >
         {onEditClick && <EditIcon className={classes.editIcon} onClick={() => onEditClick(id)} />}
+        {onDeleteClick && <DeleteIcon className={classes.deleteIcon} onClick={() => onDeleteClick(id)} />}
         {title}
       </Typography>
 

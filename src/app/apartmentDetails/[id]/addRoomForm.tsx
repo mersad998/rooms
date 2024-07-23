@@ -28,7 +28,7 @@ const AddRoomForm: FC<{ onClose: () => void; apartmentId: string }> = ({ onClose
   const onSubmit: SubmitHandler<RoomFormData> = async (formData) => {
     try {
       const _interiorImageUrl = await uploadImage(formData.interiorImageUrl);
-      const _exteriorImageUrl = await uploadImage(formData.interiorImageUrl);
+      const _exteriorImageUrl = await uploadImage(formData.exteriorImageUrl);
 
       // Dispatch the createRoom action
       await dispatch(

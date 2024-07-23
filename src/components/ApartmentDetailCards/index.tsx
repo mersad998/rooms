@@ -11,12 +11,23 @@ const ApartmentDetailCards: FC<ApartmentDetailCardsProps> = (props) => {
   const onEditClick = (apartmentId?: number): void => {
     console.log('apartmentId: ', apartmentId);
   };
+  const onDeleteClick = (apartmentId?: number): void => {
+    console.log('apartmentId: ', apartmentId);
+  };
 
   return (
     <div>
       <ApartmentInfoCard key={apartment.id} details={apartment} />
       {apartment.rooms?.map((room, idx) => {
-        return <RoomInfoCard key={room.id} roomNumber={idx + 1} details={room} onEditClick={onEditClick} />;
+        return (
+          <RoomInfoCard
+            key={room.id}
+            roomNumber={idx + 1}
+            details={room}
+            onEditClick={onEditClick}
+            onDeleteClick={onDeleteClick}
+          />
+        );
       })}
     </div>
   );
