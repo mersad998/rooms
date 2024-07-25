@@ -1,10 +1,11 @@
+import { RoomInformation } from '@/app/apartmentDetails/[id]/apartmentDetailsTypes';
+import { ApartmentInformation } from '@/app/myApartments/myApartmentTypes';
 import { supabase } from '@/lib/supabase';
-import { Apartment, Room } from '../../supabaseTypes';
 
 // --------- CRUD actions for Apartments ---------
 
 // Create an apartment
-export const createApartment = async (apartment: Omit<Apartment, 'id'>): Promise<Apartment> => {
+export const createApartment = async (apartment: Omit<ApartmentInformation, 'id'>): Promise<ApartmentInformation> => {
   const { data, error } = await supabase.from('apartments').insert([apartment]).select().single();
 
   if (error) {
@@ -15,7 +16,7 @@ export const createApartment = async (apartment: Omit<Apartment, 'id'>): Promise
 };
 
 // Get all apartments
-export const getApartments = async (): Promise<Apartment[]> => {
+export const getApartments = async (): Promise<ApartmentInformation[]> => {
   const { data, error } = await supabase.from('apartments').select('*');
 
   if (error) {
@@ -26,7 +27,7 @@ export const getApartments = async (): Promise<Apartment[]> => {
 };
 
 // Get a single apartment by ID
-export const getApartmentById = async (id: string): Promise<Apartment> => {
+export const getApartmentById = async (id: string): Promise<ApartmentInformation> => {
   const { data, error } = await supabase.from('apartments').select('*').eq('id', id).single();
 
   if (error) {
@@ -37,7 +38,7 @@ export const getApartmentById = async (id: string): Promise<Apartment> => {
 };
 
 // Update an apartment
-export const updateApartment = async (id: string, updates: Partial<Apartment>): Promise<Apartment> => {
+export const updateApartment = async (id: string, updates: Partial<ApartmentInformation>): Promise<ApartmentInformation> => {
   const { data, error } = await supabase.from('apartments').update(updates).eq('id', id).select().single();
 
   if (error) {
@@ -59,7 +60,7 @@ export const deleteApartment = async (id: string): Promise<void> => {
 // --------- CRUD actions for Rooms ---------
 
 // Create a room
-export const createRoom = async (room: Omit<Room, 'id'>): Promise<Room> => {
+export const createRoom = async (room: Omit<RoomInformation, 'id'>): Promise<RoomInformation> => {
   const { data, error } = await supabase.from('rooms').insert([room]).select().single();
 
   if (error) {
@@ -70,7 +71,7 @@ export const createRoom = async (room: Omit<Room, 'id'>): Promise<Room> => {
 };
 
 // Get all rooms for an apartment
-export const getRoomsByApartmentId = async (apartmentId: string): Promise<Room[]> => {
+export const getRoomsByApartmentId = async (apartmentId: string): Promise<RoomInformation[]> => {
   const { data, error } = await supabase.from('rooms').select('*').eq('apartmentId', apartmentId);
 
   if (error) {
@@ -81,7 +82,7 @@ export const getRoomsByApartmentId = async (apartmentId: string): Promise<Room[]
 };
 
 // Update a room
-export const updateRoom = async (id: string, updates: Partial<Room>): Promise<Room> => {
+export const updateRoom = async (id: string, updates: Partial<RoomInformation>): Promise<RoomInformation> => {
   const { data, error } = await supabase.from('rooms').update(updates).eq('id', id).select().single();
 
   if (error) {

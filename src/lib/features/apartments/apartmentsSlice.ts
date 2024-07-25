@@ -10,10 +10,10 @@ import {
   updateRoom,
   deleteRoom,
 } from './apartmentsApi';
-import { ApartmentsSliceState } from './apartmentsTypes';
-import { Apartment, Room } from '@/lib/supabaseTypes';
 
+import type { ApartmentsSliceState } from './apartmentsTypes';
 import type { ApartmentInformation } from '@/app/myApartments/myApartmentTypes';
+import type { RoomInformation } from '@/app/apartmentDetails/[id]/apartmentDetailsTypes';
 
 const initialState: ApartmentsSliceState = {
   value: null,
@@ -28,7 +28,7 @@ const initialState: ApartmentsSliceState = {
 export const apartmentsSlice = createAppSlice({
   name: 'apartments',
   initialState,
-  reducers: (create: any) => ({
+  reducers: (create) => ({
     // Async thunk to fetch apartments list
     fetchApartmentsAction: create.asyncThunk(
       async () => {
@@ -36,14 +36,14 @@ export const apartmentsSlice = createAppSlice({
         return response;
       },
       {
-        pending: (state: any) => {
+        pending: (state) => {
           state.status = 'loading';
         },
-        fulfilled: (state: any, action: any) => {
+        fulfilled: (state, action) => {
           state.status = 'idle';
-          state.value = action.payload;
+          state.value = action.payload as ApartmentInformation[];
         },
-        rejected: (state: any) => {
+        rejected: (state) => {
           state.status = 'failed';
         },
       },
@@ -57,14 +57,14 @@ export const apartmentsSlice = createAppSlice({
         return { ...apartment, rooms };
       },
       {
-        pending: (state: any) => {
+        pending: (state) => {
           state.status = 'loading';
         },
-        fulfilled: (state: any, action: any) => {
+        fulfilled: (state, action) => {
           state.status = 'idle';
-          state.apartmentDetails = action.payload;
+          state.apartmentDetails = action.payload as ApartmentInformation;
         },
-        rejected: (state: any) => {
+        rejected: (state) => {
           state.status = 'failed';
         },
       },
@@ -72,19 +72,21 @@ export const apartmentsSlice = createAppSlice({
 
     // Async thunk to create a new apartment
     createApartmentAction: create.asyncThunk(
-      async (apartment: Omit<Apartment, 'id'>) => {
+      async (apartment: Omit<ApartmentInformation, 'id'>) => {
         const newApartment = await createApartment(apartment);
         return newApartment;
       },
       {
-        pending: (state: any) => {
+        pending: (state) => {
           state.status = 'loading';
         },
-        fulfilled: (state: any, action: any) => {
+        fulfilled: (state, action) => {
           state.status = 'idle';
-          state.value = state.value ? [...state.value, action.payload] : [action.payload];
+          state.value = state.value
+            ? [...state.value, action.payload as ApartmentInformation]
+            : [action.payload as ApartmentInformation];
         },
-        rejected: (state: any) => {
+        rejected: (state) => {
           state.status = 'failed';
         },
       },
@@ -92,21 +94,23 @@ export const apartmentsSlice = createAppSlice({
 
     // Async thunk to update an existing apartment
     updateApartmentAction: create.asyncThunk(
-      async ({ id, updates }: { id: string; updates: Partial<Apartment> }) => {
+      async ({ id, updates }: { id: string; updates: Partial<ApartmentInformation> }) => {
         const updatedApartment = await updateApartment(id, updates);
         return updatedApartment;
       },
       {
-        pending: (state: any) => {
+        pending: (state) => {
           state.status = 'loading';
         },
-        fulfilled: (state: any, action: any) => {
+        fulfilled: (state, action) => {
           state.status = 'idle';
           state.value = state.value
-            ? state.value.map((apt: ApartmentInformation) => (apt.id === action.payload.id ? action.payload : apt))
-            : [action.payload];
+            ? state.value.map((apt: ApartmentInformation) =>
+                apt.id === (action.payload as ApartmentInformation).id ? (action.payload as ApartmentInformation) : apt,
+              )
+            : [action.payload as ApartmentInformation];
         },
-        rejected: (state: any) => {
+        rejected: (state) => {
           state.status = 'failed';
         },
       },
@@ -119,14 +123,14 @@ export const apartmentsSlice = createAppSlice({
         return id;
       },
       {
-        pending: (state: any) => {
+        pending: (state) => {
           state.status = 'loading';
         },
-        fulfilled: (state: any, action: any) => {
+        fulfilled: (state, action) => {
           state.status = 'idle';
           state.value = state.value ? state.value.filter((apt: ApartmentInformation) => apt.id !== action.payload) : [];
         },
-        rejected: (state: any) => {
+        rejected: (state) => {
           state.status = 'failed';
         },
       },
@@ -134,21 +138,21 @@ export const apartmentsSlice = createAppSlice({
 
     // Async thunk to create a new room
     createRoomAction: create.asyncThunk(
-      async (room: Omit<Room, 'id'>) => {
+      async (room: Omit<RoomInformation, 'id'>) => {
         const newRoom = await createRoom(room);
         return newRoom;
       },
       {
-        pending: (state: any) => {
+        pending: (state) => {
           state.status = 'loading';
         },
-        fulfilled: (state: any, action: any) => {
+        fulfilled: (state, action) => {
           if (state.apartmentDetails && state.apartmentDetails.rooms) {
-            state.apartmentDetails.rooms = [...state.apartmentDetails.rooms, action.payload];
+            state.apartmentDetails.rooms = [...state.apartmentDetails.rooms, action.payload as RoomInformation];
           }
           state.status = 'idle';
         },
-        rejected: (state: any) => {
+        rejected: (state) => {
           state.status = 'failed';
         },
       },
@@ -156,23 +160,23 @@ export const apartmentsSlice = createAppSlice({
 
     // Async thunk to update an existing room
     updateRoomAction: create.asyncThunk(
-      async ({ id, updates }: { id: string; updates: Partial<Room> }) => {
+      async ({ id, updates }: { id: string; updates: Partial<RoomInformation> }) => {
         const updatedRoom = await updateRoom(id, updates);
         return updatedRoom;
       },
       {
-        pending: (state: any) => {
+        pending: (state) => {
           state.status = 'loading';
         },
-        fulfilled: (state: any, action: any) => {
+        fulfilled: (state, action) => {
           if (state.apartmentDetails && state.apartmentDetails.rooms) {
-            state.apartmentDetails.rooms = state.apartmentDetails.rooms.map((room: Room) =>
-              room.id === action.payload.id ? action.payload : room,
+            state.apartmentDetails.rooms = state.apartmentDetails.rooms.map((room) =>
+              room.id === (action.payload as RoomInformation).id ? (action.payload as RoomInformation) : room,
             );
           }
           state.status = 'idle';
         },
-        rejected: (state: any) => {
+        rejected: (state) => {
           state.status = 'failed';
         },
       },
@@ -185,38 +189,28 @@ export const apartmentsSlice = createAppSlice({
         return id;
       },
       {
-        pending: (state: any) => {
+        pending: (state) => {
           state.status = 'loading';
         },
-        fulfilled: (state: any, action: any) => {
+        fulfilled: (state, action) => {
           if (state.apartmentDetails && state.apartmentDetails.rooms) {
-            state.apartmentDetails.rooms = state.apartmentDetails.rooms.filter((room: Room) => room.id !== action.payload);
+            state.apartmentDetails.rooms = state.apartmentDetails.rooms.filter(
+              (room) => room.id !== (action.payload as RoomInformation['id']),
+            );
           }
           state.status = 'idle';
         },
-        rejected: (state: any) => {
+        rejected: (state) => {
           state.status = 'failed';
-        },
-      },
-    ),
-
-    // Non-async thunk
-    setParametersAction: create.asyncThunk(
-      (params: any) => {
-        return params;
-      },
-      {
-        fulfilled: (state: any, action: any) => {
-          state.params = action.payload;
         },
       },
     ),
   }),
   selectors: {
-    selectApartments: (apartments: any) => apartments.value,
-    selectApartmentDetails: (apartments: any) => apartments.apartmentDetails,
-    getParameters: (apartments: any) => apartments.params,
-    isLoadingApartments: (apartments: any) => apartments.status === 'loading',
+    selectApartments: (apartments) => apartments.value,
+    selectApartmentDetails: (apartments) => apartments.apartmentDetails,
+    getParameters: (apartments) => apartments.params,
+    isLoadingApartments: (apartments) => apartments.status === 'loading',
   },
 });
 
@@ -230,8 +224,7 @@ export const {
   createRoomAction,
   updateRoomAction,
   deleteRoomAction,
-  setParametersAction,
-} = apartmentsSlice.actions as any;
+} = apartmentsSlice.actions;
 
 // Export selectors
 export const { selectApartments, selectApartmentDetails, getParameters, isLoadingApartments } = apartmentsSlice.selectors;

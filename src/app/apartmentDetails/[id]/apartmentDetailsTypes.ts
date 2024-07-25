@@ -4,8 +4,8 @@ export interface ApartmentDetailsProps {
 }
 
 export interface RoomInformation {
-  id: number;
-  apartmentId: number;
+  id: string;
+  apartmentId: string;
   createdAt: number; // Timestamp
   name: string;
   size: number; // in square meters

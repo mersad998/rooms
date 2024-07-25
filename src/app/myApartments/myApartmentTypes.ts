@@ -1,7 +1,7 @@
 import type { RoomInformation } from '../apartmentDetails/[id]/apartmentDetailsTypes';
 
 export interface ApartmentInformation {
-  id: number;
+  id: string;
   name: string;
   createdAt: number;
   location: string;
