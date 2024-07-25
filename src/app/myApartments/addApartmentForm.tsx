@@ -1,7 +1,7 @@
 'use client';
 import { FC, useRef, useState } from 'react';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
+import { Button, CircularProgress, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Dialog } from '@mui/material';
@@ -26,6 +26,9 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
   // Ref to the real file input element to trigger the file selection dialog
   const imageInput = useRef<HTMLInputElement>(null);
 
+  // loading state
+  const [isSending, setIsSending] = useState(false);
+
   // Handle the click event on the text field to trigger the file selection dialog
   const handleImageClick = (): void => {
     imageInput.current?.click();
@@ -42,6 +45,9 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
 
   // upload the image to supabase and then create the apartment with the image URL
   const onSubmit: SubmitHandler<ApartmentFormData> = async (formData) => {
+    // show loading
+    setIsSending(true);
+
     try {
       const imageUrl = await uploadToSupabase(formData.imageUrl);
 
@@ -53,9 +59,13 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
         }),
       ).unwrap(); // Unwrap the result to handle any errors
 
+      // disappear loading
+      setIsSending(false);
+
       // Close the dialog
       onClose();
     } catch (error) {
+      setIsSending(false);
       console.error('Failed to create apartment:', error);
     }
   };
@@ -175,8 +185,12 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button type="submit">create</Button>
+        <Button disabled={isSending} onClick={onClose}>
+          Cancel
+        </Button>
+        <Button disabled={isSending} type="submit">
+          {isSending ? <CircularProgress size={25} /> : 'create'}
+        </Button>
       </DialogActions>
     </Dialog>
   );

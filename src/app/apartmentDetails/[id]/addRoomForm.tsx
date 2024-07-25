@@ -1,7 +1,7 @@
 'use client';
 import { FC, useRef, useState } from 'react';
 
-import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
+import { Button, CircularProgress, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
 import { Dialog } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { createRoomAction } from '@/lib/features/apartments/apartmentsSlice';
@@ -21,6 +21,9 @@ const AddRoomForm: FC<{ onClose: () => void; apartmentId: string }> = ({ onClose
 
   const dispatch = useDispatch<ThunkDispatch<void, void, AnyAction>>();
 
+  // loading state
+  const [isSending, setIsSending] = useState(false);
+
   // image name will be shown on text field input
   const [interiorImageName, setInteriorImageName] = useState('');
   const [exteriorImageName, setExteriorImageName] = useState('');
@@ -31,6 +34,9 @@ const AddRoomForm: FC<{ onClose: () => void; apartmentId: string }> = ({ onClose
 
   // upload the image to supabase and then create the room with the image URL
   const onSubmit: SubmitHandler<RoomFormData> = async (formData) => {
+    // show loading
+    setIsSending(true);
+
     try {
       // Upload the images to Supabase
       const _interiorImageUrl = await uploadToSupabase(formData.interiorImageUrl);
@@ -46,8 +52,12 @@ const AddRoomForm: FC<{ onClose: () => void; apartmentId: string }> = ({ onClose
         }),
       ).unwrap(); // Unwrap the result to handle any errors
 
+      // disappear loading
+      setIsSending(false);
+
       onClose();
     } catch (error) {
+      setIsSending(false);
       console.error('Failed to create room:', error);
     }
   };
@@ -174,8 +184,12 @@ const AddRoomForm: FC<{ onClose: () => void; apartmentId: string }> = ({ onClose
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button type="submit">create</Button>
+        <Button disabled={isSending} onClick={onClose}>
+          Cancel
+        </Button>
+        <Button disabled={isSending} type="submit">
+          {isSending ? <CircularProgress size={25} /> : 'create'}
+        </Button>
       </DialogActions>
     </Dialog>
   );
