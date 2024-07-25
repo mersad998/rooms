@@ -16,7 +16,7 @@ const ImageDialog: FC<{ onClose: () => void; name: string; imageUrl: string }> =
           src={imageUrl}
           alt={name}
           loading="lazy"
-          style={{ width: '100%', height: '100%', maxHeight: 500, maxWidth: 500, objectFit: 'contain' }}
+          className="w-full h-full max-h-[500px] max-w-[500px] object-contain"
         />
       </DialogContent>
 

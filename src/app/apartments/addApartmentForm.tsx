@@ -158,7 +158,7 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
           id="exteriorImageUrl"
           name="exteriorImageUrl"
           ref={imageInput}
-          style={{ display: 'none' }}
+          className="hidden"
           type="file"
           onChange={handleImageChange}
         />

@@ -20,17 +20,10 @@ const DrawerItemsContainer: React.FC<DrawerItemsContainerProps> = (props) => {
   const theme = useTheme();
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        height: '100%',
-      }}
-    >
+    <div className="flex flex-col justify-between h-full">
       <div>
         <Toolbar>
-          <AccountCircleIcon style={{ color: '#042f83', marginRight: 2 }} />
+          <AccountCircleIcon className="text-[#042f83] mr-0.5" />
           <Typography>Welcome Rooms User</Typography>
         </Toolbar>
         <Divider />
@@ -60,25 +53,18 @@ const DrawerItemsContainer: React.FC<DrawerItemsContainerProps> = (props) => {
         </List>
       </div>
       <div
+        className="h-[110px] w-full bg-no-repeat bg-cover flex flex-col justify-center items-center"
         style={{
-          height: 110,
-          width: '100%',
           backgroundImage: `${
             theme.palette.mode === 'dark'
               ? 'linear-gradient(105deg, rgba(0,24,96,1) 0%, rgba(36,36,36,1) 100%)'
               : 'linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7))'
           }
             ,url("https://www.friends-in-flats.com/assets/img/bg-building-1.jpg")`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
         }}
       >
-        <Typography style={{ textAlign: 'center' }}>Designed with 💙 for</Typography>
-        <Typography style={{ textAlign: 'center' }}>Friends in Flats</Typography>
+        <Typography className="text-center">Designed with 💙 for</Typography>
+        <Typography className="text-center">Friends in Flats</Typography>
       </div>
     </div>
   );

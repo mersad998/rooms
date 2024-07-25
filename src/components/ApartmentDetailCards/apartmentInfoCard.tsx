@@ -17,53 +17,44 @@ const ApartmentInfoCard: FC<{ details: ApartmentInformation }> = ({ details }) =
   return (
     <DetailCardContainer title={`${details.name}`} titleColor="#042f83">
       <>
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            marginTop: 8,
-            padding: 4,
-            width: '100%',
-          }}
-        >
-          <div style={{ display: 'flex', flexBasis: '33%' }}>
-            <FingerprintIcon style={{ marginInline: 4, color: '#042f83' }} />
+        <div className="flex flex-wrap justify-between mt-2 p-1 w-full">
+          <div className="flex basis-1/3">
+            <FingerprintIcon className="mx-1 text-[#042f83]" />
             <Typography textAlign={'center'}>{`file number: ${String(details.id).slice(0, 8)}`}</Typography>
           </div>
-          <div style={{ display: 'flex', flexBasis: '33%' }}>
-            <AspectRatioIcon style={{ marginInline: 4, color: '#042f83' }} />
+          <div className="flex basis-1/3">
+            <AspectRatioIcon className="mx-1 text-[#042f83]" />
             <Typography textAlign={'center'}>{`total size: ${details.size} M/Sq`}</Typography>
           </div>
-          <div style={{ display: 'flex', flexBasis: '33%' }}>
-            <StarHalfIcon style={{ marginInline: 4, color: '#042f83' }} />
+          <div className="flex basis-1/3">
+            <StarHalfIcon className="mx-1 text-[#042f83]" />
             <Typography textAlign={'center'}>{`rate: ${details.rate} / 5`}</Typography>
           </div>
-          <div style={{ display: 'flex', flexBasis: '33%' }}>
-            <AirlineSeatIndividualSuiteIcon style={{ marginInline: 4, color: '#042f83' }} />
+          <div className="flex basis-1/3">
+            <AirlineSeatIndividualSuiteIcon className="mx-1 text-[#042f83]" />
             <Typography textAlign={'center'}>{`rooms: ${details.roomNumber}`}</Typography>
           </div>
-          <div style={{ display: 'flex', flexBasis: '33%' }}>
-            <PaidIcon style={{ marginInline: 4, color: '#042f83' }} />
+          <div className="flex basis-1/3">
+            <PaidIcon className="mx-1 text-[#042f83]" />
             <Typography textAlign={'center'}>{`deposit: ${details.deposit}`}</Typography>
           </div>
-          <div style={{ display: 'flex', flexBasis: '33%' }}>
-            <CurrencyExchangeIcon style={{ marginInline: 4, color: '#042f83' }} />
+          <div className="flex basis-1/3">
+            <CurrencyExchangeIcon className="mx-1 text-[#042f83]" />
             <Typography textAlign={'center'}>{`rent: ${details.rent}`}</Typography>
           </div>
-          <div style={{ display: 'flex', flexBasis: '33%' }}>
-            <CalendarMonthIcon style={{ marginInline: 4, color: '#042f83' }} />
+          <div className="flex basis-1/3">
+            <CalendarMonthIcon className="mx-1 text-[#042f83]" />
             <Typography
               textAlign={'center'}
             >{`posted on: ${new Date(details.createdAt).getFullYear()}/${new Date(details.createdAt).getMonth()}/${new Date(details.createdAt).getDate()}`}</Typography>
           </div>
 
-          <div style={{ display: 'flex', flexBasis: '100%', marginTop: 16 }}>
-            <DescriptionIcon style={{ marginInline: 4, color: 'gray' }} />
+          <div className="flex basis-full mt-4">
+            <DescriptionIcon className="mx-1 text-gray-500" />
             <Typography textAlign={'center'}>{`description: ${details.description}`}</Typography>
           </div>
-          <div style={{ display: 'flex', flexBasis: '100%' }}>
-            <PinDropIcon style={{ marginInline: 4, color: '#ff1919' }} />
+          <div className="flex basis-full">
+            <PinDropIcon className="mx-1 text-[#ff1919]" />
             <Typography textAlign={'center'}>{`location: ${details.location}`}</Typography>
           </div>
         </div>

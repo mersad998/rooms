@@ -60,18 +60,7 @@ const ApartmentDetails: FC<ApartmentDetailsProps> = (props) => {
         {apartmentDetails && <ApartmentDetailCards apartment={apartmentDetails} />}
         <DetailCardContainer title={`Add new room`} titleColor="#042f83">
           <div
-            className={classes.addCard}
-            style={{
-              border: '1px dashed gray',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '100%',
-              height: 60,
-              marginInline: 8,
-              marginTop: 20,
-              marginBottom: 20,
-            }}
+            className={`${classes.addCard} border border-dashed border-gray-500 flex justify-center items-center w-full h-16 mx-2 mt-5 mb-5`}
             onClick={() => setIsFormOpen(true)}
           >
             <AddIcon />

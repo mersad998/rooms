@@ -33,21 +33,9 @@ const ImageGallery: FC<ImageGalleryProps> = (props) => {
       {Object.keys(images).map((galleryImageKey) => {
         return (
           <DetailCardContainer title={galleryImageKey} key={galleryImageKey}>
-            <ImageList
-              variant="masonry"
-              cols={2}
-              gap={8}
-              style={{ display: 'flex', flexWrap: 'wrap', width: '100%', justifyContent: 'space-around' }}
-            >
+            <ImageList variant="masonry" cols={2} gap={8} className="flex flex-wrap w-full justify-around">
               {images[galleryImageKey as keyof RoomImages]?.map((item) => (
-                <ImageListItem
-                  key={item.img}
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                  }}
-                >
+                <ImageListItem key={item.img} className="flex flex-col justify-center">
                   <img
                     srcSet={`${item.img}`}
                     src={`${item.img}`}
@@ -61,11 +49,7 @@ const ImageGallery: FC<ImageGalleryProps> = (props) => {
                       })
                     }
                   />
-                  <ImageListItemBar
-                    position="below"
-                    title={item.title.replaceAll('_', ' ')}
-                    style={{ width: '100%', textAlign: 'center' }}
-                  />
+                  <ImageListItemBar position="below" title={item.title.replaceAll('_', ' ')} className="w-full text-center" />
                 </ImageListItem>
               ))}
             </ImageList>

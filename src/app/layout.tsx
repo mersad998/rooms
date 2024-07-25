@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import { Inter } from 'next/font/google';
+import './tailwind.css';
 import type { Metadata } from 'next';
 
 import { APP_NAME } from './constants';

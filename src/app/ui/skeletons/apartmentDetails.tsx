@@ -3,14 +3,14 @@ import Skeleton from '@mui/material/Skeleton';
 
 const ApartmentDetailsSkeleton: FC = () => {
   return (
-    <div style={{ display: 'flex', flex: 1, padding: 8 }}>
-      <div style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <div className="flex flex-1 p-2">
+      <div className="flex-1 justify-center items-center">
         <Skeleton variant="rectangular" width={300} height={300} animation="wave" sx={{ marginTop: 1 }} />
         <Skeleton variant="rectangular" width={300} height={300} animation="wave" sx={{ marginTop: 1 }} />
         <Skeleton variant="rectangular" width={300} height={300} animation="wave" sx={{ marginTop: 1 }} />
       </div>
 
-      <div style={{ flex: 2, padding: 8 }}>
+      <div className="flex-2 p-2">
         <div>
           <Skeleton variant="text" width={'100%'} height={60} animation="wave" />
           <Skeleton variant="text" width={'100%'} height={100} animation="wave" />

@@ -22,22 +22,13 @@ const RoomInfoCard: FC<{
       onDeleteClick={onDeleteClick}
     >
       <>
-        <div
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            marginTop: 8,
-            padding: 4,
-            width: '100%',
-          }}
-        >
-          <div style={{ display: 'flex' }}>
-            <AirlineSeatIndividualSuiteIcon style={{ marginInline: 4, color: '#042f83' }} />
+        <div className="flex flex-wrap justify-between mt-2 p-1 w-full">
+          <div className="flex">
+            <AirlineSeatIndividualSuiteIcon className="mx-1 text-[#042f83]" />
             <Typography textAlign={'center'}>{`name: ${details.name}`}</Typography>
           </div>
-          <div style={{ display: 'flex' }}>
-            <AspectRatioIcon style={{ marginInline: 4, color: '#042f83' }} />
+          <div className="flex">
+            <AspectRatioIcon className="mx-1 text-[#042f83]" />
             <Typography textAlign={'center'}>{`total size: ${details.size} M/Sq`}</Typography>
           </div>
         </div>

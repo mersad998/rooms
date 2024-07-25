@@ -13,7 +13,7 @@ const ApartmentCard: React.FC<Partial<ApartmentInformation>> = (props) => {
       <CardActionArea onClick={() => onCardClick!(id!)}>
         <CardMedia component="img" height="140" image={imageUrl ?? 'assets/images/default-photo.png'} alt="apartment image" />
         <CardContent>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <div className="flex justify-between">
             <Typography gutterBottom variant="h5" component="div">
               {name}
             </Typography>

@@ -134,7 +134,7 @@ const AddRoomForm: FC<{ onClose: () => void; apartmentId: string }> = ({ onClose
           id="interiorImageUrl"
           name="interiorImageUrl"
           ref={interiorImageInput}
-          style={{ display: 'none' }}
+          className="hidden"
           type="file"
           onChange={handleInteriorImageChange}
         />
@@ -157,7 +157,7 @@ const AddRoomForm: FC<{ onClose: () => void; apartmentId: string }> = ({ onClose
           id="exteriorImageUrl"
           name="exteriorImageUrl"
           ref={exteriorImageInput}
-          style={{ display: 'none' }}
+          className="hidden"
           type="file"
           onChange={handleExteriorImageChange}
         />

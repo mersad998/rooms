@@ -5,34 +5,15 @@ import CheckIcon from '@mui/icons-material/Check';
 
 const BulletsCard: FC<{ title: string; bullets: string[] }> = ({ title, bullets = [] }) => {
   return (
-    <div style={{ width: '100%' }}>
-      <Typography
-        style={{
-          width: '100%',
-          marginTop: 24,
-          textAlign: 'center',
-          borderTop: '0.5px dotted purple',
-          borderBottom: '0.5px dotted purple',
-          alignSelf: 'center',
-          margin: 'auto',
-        }}
-      >
+    <div className="w-full">
+      <Typography className="w-full mt-6 text-center border-t border-b border-dotted border-purple-500 self-center mx-auto">
         {title}
       </Typography>
 
-      <div
-        style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          justifyContent: 'space-between',
-          marginTop: 8,
-          padding: 4,
-          width: '100%',
-        }}
-      >
+      <div className="flex flex-wrap justify-between mt-2 p-1 w-full">
         {bullets.map((bullet) => (
-          <div key={bullet} style={{ display: 'flex', flexBasis: '30%', alignItems: 'center' }}>
-            <CheckIcon style={{ color: 'green', marginRight: 8 }} />
+          <div key={bullet} className="flex basis-1/3 items-center">
+            <CheckIcon className="text-green-500 mr-2F" />
             <Typography>{bullet}</Typography>
           </div>
         ))}

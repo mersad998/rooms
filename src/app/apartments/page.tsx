@@ -38,7 +38,7 @@ const Apartments: FC = () => {
   };
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div className="flex flex-wrap">
       {isFormOpen && (
         <AddApartmentForm
           onClose={() => {
@@ -53,46 +53,35 @@ const Apartments: FC = () => {
         return (
           <Box
             component={Paper}
-            className={classes.cardContainer}
+            className={`${classes.cardContainer} flex flex-col justify-between items-center w-[350px] h-[300px] mx-2 p-3 mt-2`}
             key={index}
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              width: 350,
-              height: 300,
-              marginInline: 8,
-              padding: 12,
-              marginTop: 8,
-            }}
             onClick={() => goToDetails(apartment.id)}
           >
             <Typography variant="h5" color={'purple'}>
               {apartment.name}
             </Typography>
-            <div style={{ width: '100%', display: 'flex', paddingTop: 4, paddingBottom: 4 }}>
-              <Typography style={{ fontSize: '13px', fontWeight: 'bold' }}>location:</Typography>
-              <Typography style={{ fontSize: '13px', width: '100%', marginLeft: 8 }}>{apartment.location}</Typography>
+            <div className="w-full flex pt-1 pb-1">
+              <Typography className="text-[13px] font-bold">location:</Typography>
+              <Typography className="text-[13px] w-full ml-2">{apartment.location}</Typography>
             </div>
-            <div style={{ width: '100%', display: 'flex', paddingTop: 4, paddingBottom: 4 }}>
-              <Typography style={{ fontSize: '13px', fontWeight: 'bold' }}>deposit:</Typography>
-              <Typography style={{ fontSize: '13px', width: '100%', marginLeft: 8 }}>{apartment.deposit}</Typography>
+            <div className="w-full flex pt-1 pb-1">
+              <Typography className="text-[13px] font-bold">deposit:</Typography>
+              <Typography className="text-[13px] w-full ml-2">{apartment.deposit}</Typography>
             </div>
-            <div style={{ width: '100%', display: 'flex', paddingTop: 4, paddingBottom: 4 }}>
-              <Typography style={{ fontSize: '13px', fontWeight: 'bold' }}>rent:</Typography>
-              <Typography style={{ fontSize: '13px', width: '100%', marginLeft: 8 }}>{apartment.rent}</Typography>
+            <div className="w-full flex pt-1 pb-1">
+              <Typography className="text-[13px] font-bold">rent:</Typography>
+              <Typography className="text-[13px] w-full ml-2">{apartment.rent}</Typography>
             </div>
-            <div style={{ width: '100%', display: 'flex', paddingTop: 4, paddingBottom: 4 }}>
-              <Typography style={{ fontSize: '13px', fontWeight: 'bold' }}>description:</Typography>
-              <Typography style={{ fontSize: '13px', width: '100%', marginLeft: 8 }}>{apartment.description}</Typography>
+            <div className="w-full flex pt-1 pb-1">
+              <Typography className="text-[13px] font-bold">description:</Typography>
+              <Typography className="text-[13px] w-full ml-2">{apartment.description}</Typography>
             </div>
 
-            <div style={{ display: 'flex', width: '100%', borderTop: '1px purple dotted' }}>
-              <Button style={{ display: 'flex' }} onClick={onDeleteClick} color="error">
+            <div className="flex w-full border-t border-t-purple-500 border-dotted">
+              <Button className="flex" onClick={onDeleteClick} color="error">
                 <Typography variant="body2">Delete</Typography>
               </Button>
-              <Button style={{ display: 'flex' }} onClick={onEditClick}>
+              <Button className="flex" onClick={onEditClick}>
                 <Typography variant="body2">Edit</Typography>
               </Button>
             </div>
@@ -102,17 +91,7 @@ const Apartments: FC = () => {
 
       <Box
         component={Paper}
-        className={classes.cardContainer}
-        style={{
-          border: '1px dashed gray',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: 350,
-          height: 300,
-          marginInline: 8,
-          marginTop: 8,
-        }}
+        className={`${classes.cardContainer} border border-dashed border-gray-500 flex justify-center items-center w-[350px] h-[300px] mx-2 mt-2`}
         onClick={() => setIsFormOpen(true)}
       >
         <AddIcon />

@@ -1,5 +1,4 @@
 'use client';
-
 import ApartmentCard from '@/components/apartmentCard';
 import ResponsiveGrid from '@/components/ResponsiveGrid';
 
