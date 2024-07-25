@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
 import { Theme, createTheme } from '@mui/material';
-import { readFromLocalStorage, writeToLocalStorage } from '@/app/globalHelpers';
+import { readFromLocalStorage, writeToLocalStorage } from '@/app/(helpers)/globalHelpers';
 
 const App_Settings = 'App_Settings';
 

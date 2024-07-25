@@ -1,4 +1,4 @@
-import { readFromLocalStorage, writeToLocalStorage } from '@/app/globalHelpers';
+import { readFromLocalStorage, writeToLocalStorage } from '@/app/(helpers)/globalHelpers';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {

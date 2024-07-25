@@ -4,7 +4,7 @@ import ResponsiveGrid from '@/components/ResponsiveGrid';
 
 import { FC } from 'react';
 import { useRouter } from 'next/navigation';
-import useApartments from './hooks/useApartments';
+import useApartments from '../hooks/useApartments';
 import { Typography } from '@mui/material';
 
 const HomePage: FC = () => {

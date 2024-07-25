@@ -1,14 +1,14 @@
 import { Suspense } from 'react';
 import { Inter } from 'next/font/google';
-import './tailwind.css';
+import '../(helpers)/tailwind.css';
 import type { Metadata } from 'next';
 
-import { APP_NAME } from './constants';
-import FullLayoutSkeleton from './ui/skeletons/fullLayoutSkeleton';
+import { APP_NAME } from '../(helpers)/constants';
+import FullLayoutSkeleton from '../ui/skeletons/fullLayoutSkeleton';
 import { Drawer } from '@/components/drawer';
 
-import type { RootLayoutProps } from './globalTypes';
-import { StoreProvider } from './StoreProvider';
+import type { RootLayoutProps } from '../(helpers)/globalTypes';
+import { StoreProvider } from '../(helpers)/StoreProvider';
 
 // handle fonts
 const inter = Inter({ subsets: ['latin'] });

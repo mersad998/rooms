@@ -15,7 +15,7 @@ import { useTheme } from '@mui/material/styles';
 import { DRAWER_WIDTH } from './constants';
 
 import type { DrawerViewProps } from './drawerTypes';
-import { APP_NAME } from '@/app/constants';
+import { APP_NAME } from '@/app/(helpers)/constants';
 import DrawerItemsContainer from './drawerItemsContainer';
 
 const DrawerView: React.FC<DrawerViewProps> = (props) => {
