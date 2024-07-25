@@ -4,8 +4,9 @@ import { Typography } from '@mui/material';
 import AirlineSeatIndividualSuiteIcon from '@mui/icons-material/AirlineSeatIndividualSuite';
 import AspectRatioIcon from '@mui/icons-material/AspectRatio';
 import { DetailCardContainer } from '../detailCardContainer';
-import { RoomInformation } from '@/app/apartmentDetails/[id]/apartmentDetailsTypes';
 import BulletsCard from './bulletsCard';
+
+import type { RoomInformation } from '@/app/apartmentDetails/[id]/apartmentDetailsTypes';
 
 const RoomInfoCard: FC<{
   details: RoomInformation;

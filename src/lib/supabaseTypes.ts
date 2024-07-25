@@ -176,5 +176,5 @@ export type Enums<
     ? PublicSchema['Enums'][PublicEnumNameOrOptions]
     : never;
 
-export type Apartment = Database['public']['Tables']['apartments']['Row']
-export type Room = Database['public']['Tables']['rooms']['Row']
+export type Apartment = Database['public']['Tables']['apartments']['Row'];
+export type Room = Database['public']['Tables']['rooms']['Row'];

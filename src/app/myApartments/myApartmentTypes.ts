@@ -1,4 +1,4 @@
-import { RoomInformation } from '../apartmentDetails/[id]/apartmentDetailsTypes';
+import type { RoomInformation } from '../apartmentDetails/[id]/apartmentDetailsTypes';
 
 export interface ApartmentInformation {
   id: number;

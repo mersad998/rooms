@@ -1,4 +1,8 @@
-import { ApartmentInformation } from './apartments/apartmentTypes';
+/**
+ * this file contains mock data for testing purposes and should not be used in production
+ */
+
+import type { ApartmentInformation } from '../myApartments/myApartmentTypes';
 
 export const mockApartments: ApartmentInformation[] = [
   {

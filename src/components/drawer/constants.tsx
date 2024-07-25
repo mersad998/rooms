@@ -11,14 +11,14 @@ export const DRAWER_WIDTH = 240;
 
 export const primaryItems: DrawerItem[] = [
   {
-    title: 'Flat list',
+    title: 'Flats',
     icon: <HolidayVillageIcon />,
     link: '/',
   },
   {
-    title: 'Add your flat',
+    title: 'My Apartments',
     icon: <AddHomeIcon />,
-    link: '/apartments',
+    link: '/myApartments',
   },
   {
     title: 'Show on map',

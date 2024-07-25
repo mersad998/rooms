@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase';
 import { Apartment, Room } from '../../supabaseTypes';
 
-// --------- CRUD for Apartment Apartments ---------
+// --------- CRUD actions for Apartments ---------
 
 // Create an apartment
 export const createApartment = async (apartment: Omit<Apartment, 'id'>): Promise<Apartment> => {
@@ -56,7 +56,7 @@ export const deleteApartment = async (id: string): Promise<void> => {
   }
 };
 
-// --------- CRUD for Apartment Rooms ---------
+// --------- CRUD actions for Rooms ---------
 
 // Create a room
 export const createRoom = async (room: Omit<Room, 'id'>): Promise<Room> => {
@@ -100,7 +100,8 @@ export const deleteRoom = async (id: string): Promise<void> => {
   }
 };
 
-export const uploadImage = async (file: File): Promise<string> => {
+// --------- Image upload to Supabase storage ---------
+export const uploadToSupabase = async (file: File): Promise<string> => {
   const path = `images/${file.name}-${Date.now()}`;
   const { error } = await supabase.storage.from('rooms').upload(path, file);
 

@@ -21,8 +21,10 @@ const ApartmentDetails: FC<ApartmentDetailsProps> = (props) => {
 
   const [isLoading, apartmentDetails] = useApartmentDetails(id);
   const [isFormOpen, setIsFormOpen] = useState(false);
+
   const classes = useStyles();
 
+  // Show loading skeleton
   if (isLoading) {
     return (
       <div className={classes.container}>
@@ -32,6 +34,7 @@ const ApartmentDetails: FC<ApartmentDetailsProps> = (props) => {
   }
 
   if (!apartmentDetails) {
+    // we can design a better error handling here
     return (
       <div className={classes.container}>
         <Typography>Apartment not found!</Typography>

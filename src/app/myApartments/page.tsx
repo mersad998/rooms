@@ -4,38 +4,34 @@ import AddIcon from '@mui/icons-material/Add';
 import { Box, Button, Paper, Typography } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
-import makeStyles from '@mui/styles/makeStyles';
 import AddApartmentForm from './addApartmentForm';
-import { ApartmentInformation } from './apartmentTypes';
 import useApartments from '../hooks/useApartments';
+import FullLayoutSkeleton from '../ui/skeletons/fullLayoutSkeleton';
+import { useStyles } from './myApartmentStyles';
 
-export const useStyles = makeStyles(() => ({
-  cardContainer: {
-    '&:hover ': {
-      color: 'rgba(0,24,96,0.7)',
-      boxShadow: '0 0 5px rgba(48,125,193,1)',
-      border: 'unset !important',
-    },
-  },
-}));
-
-const Apartments: FC = () => {
+const MyApartments: FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isLoading, apartments] = useApartments();
 
   const router = useRouter();
   const classes = useStyles();
 
+  // Navigate to the apartment details page
   const goToDetails = (apartmentId: number): void => {
     router.push(`apartmentDetails/${apartmentId}`);
   };
 
+  // Handle the delete and edit button clicks
   const onDeleteClick = (event: FormEvent<HTMLButtonElement>): void => {
     event.stopPropagation();
   };
   const onEditClick = (event: FormEvent<HTMLButtonElement>): void => {
     event.stopPropagation();
   };
+
+  if (isLoading) {
+    return <FullLayoutSkeleton />;
+  }
 
   return (
     <div className="flex flex-wrap">
@@ -100,4 +96,4 @@ const Apartments: FC = () => {
   );
 };
 
-export default Apartments;
+export default MyApartments;

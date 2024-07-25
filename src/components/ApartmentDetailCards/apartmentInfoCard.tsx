@@ -1,17 +1,18 @@
 import { type FC } from 'react';
 
 import { Typography } from '@mui/material';
+import { DetailCardContainer } from '../detailCardContainer';
 import AirlineSeatIndividualSuiteIcon from '@mui/icons-material/AirlineSeatIndividualSuite';
 import AspectRatioIcon from '@mui/icons-material/AspectRatio';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { DetailCardContainer } from '../detailCardContainer';
-import { ApartmentInformation } from '@/app/apartments/apartmentTypes';
 import PaidIcon from '@mui/icons-material/Paid';
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import StarHalfIcon from '@mui/icons-material/StarHalf';
 import FingerprintIcon from '@mui/icons-material/Fingerprint';
 import PinDropIcon from '@mui/icons-material/PinDrop';
 import DescriptionIcon from '@mui/icons-material/Description';
+
+import type { ApartmentInformation } from '@/app/myApartments/myApartmentTypes';
 
 const ApartmentInfoCard: FC<{ details: ApartmentInformation }> = ({ details }) => {
   return (

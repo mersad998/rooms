@@ -1,14 +1,15 @@
 'use client';
 import { FC, useRef, useState } from 'react';
-
-import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
-import { Dialog } from '@mui/material';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { ApartmentInformation } from './apartmentTypes';
-import { createApartmentAction } from '@/lib/features/apartments/apartmentsSlice';
-import { useDispatch } from 'react-redux';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-import { uploadImage } from '@/lib/features/apartments/apartmentsApi';
+import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { Dialog } from '@mui/material';
+
+import { uploadToSupabase } from '@/lib/features/apartments/apartmentsApi';
+import { createApartmentAction } from '@/lib/features/apartments/apartmentsSlice';
+
+import type { ApartmentInformation } from './myApartmentTypes';
 
 type ApartmentFormData = Omit<ApartmentInformation, 'imageUrl'> & {
   imageUrl: File;
@@ -17,14 +18,21 @@ type ApartmentFormData = Omit<ApartmentInformation, 'imageUrl'> & {
 const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
   const { register, handleSubmit, setValue } = useForm<ApartmentFormData>();
 
+  const dispatch = useDispatch<ThunkDispatch<void, void, AnyAction>>();
+
+  // image name will be shown on text field input
   const [imageName, setImageName] = useState('');
+
+  // Ref to the real file input element to trigger the file selection dialog
   const imageInput = useRef<HTMLInputElement>(null);
 
+  // Handle the click event on the text field to trigger the file selection dialog
   const handleImageClick = (): void => {
     imageInput.current?.click();
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  // Handle the change event on the file input element
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       setImageName(file.name);
@@ -32,11 +40,10 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
     }
   };
 
-  const dispatch = useDispatch<ThunkDispatch<void, void, AnyAction>>();
-
+  // upload the image to supabase and then create the apartment with the image URL
   const onSubmit: SubmitHandler<ApartmentFormData> = async (formData) => {
     try {
-      const imageUrl = await uploadImage(formData.imageUrl);
+      const imageUrl = await uploadToSupabase(formData.imageUrl);
 
       // Dispatch the createApartment action
       await dispatch(
@@ -45,6 +52,8 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
           imageUrl: imageUrl,
         }),
       ).unwrap(); // Unwrap the result to handle any errors
+
+      // Close the dialog
       onClose();
     } catch (error) {
       console.error('Failed to create apartment:', error);
@@ -60,6 +69,7 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
       }}
     >
       <DialogTitle>Add Apartment</DialogTitle>
+
       <DialogContent>
         <DialogContentText>In this step you should create your new apartment.</DialogContentText>
         <DialogContentText>you will be able to add details to it at any time!</DialogContentText>
@@ -163,6 +173,7 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
           onChange={handleImageChange}
         />
       </DialogContent>
+
       <DialogActions>
         <Button onClick={onClose}>Cancel</Button>
         <Button type="submit">create</Button>

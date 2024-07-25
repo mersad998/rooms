@@ -1,5 +1,5 @@
 import type { RoomImages } from './types';
-import { ApartmentInformation } from '@/app/apartments/apartmentTypes';
+import type { ApartmentInformation } from '@/app/myApartments/myApartmentTypes';
 
 export const getApartmentImages = (rooms: ApartmentInformation['rooms'], mainImage?: string): RoomImages => {
   const images: RoomImages = {};

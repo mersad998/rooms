@@ -1,4 +1,4 @@
-import { ApartmentInformation } from '@/app/apartments/apartmentTypes';
+import type { ApartmentInformation } from '@/app/myApartments/myApartmentTypes';
 
 type RequestStatus = 'idle' | 'loading' | 'failed';
 

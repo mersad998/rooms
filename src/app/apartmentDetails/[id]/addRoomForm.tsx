@@ -4,11 +4,12 @@ import { FC, useRef, useState } from 'react';
 import { Button, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
 import { Dialog } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { RoomInformation } from './apartmentDetailsTypes';
 import { createRoomAction } from '@/lib/features/apartments/apartmentsSlice';
 import { useDispatch } from 'react-redux';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
-import { uploadImage } from '@/lib/features/apartments/apartmentsApi';
+import { uploadToSupabase } from '@/lib/features/apartments/apartmentsApi';
+
+import type { RoomInformation } from './apartmentDetailsTypes';
 
 type RoomFormData = Omit<RoomInformation, 'interiorImageUrl' | 'exteriorImageUrl'> & {
   interiorImageUrl: File;
@@ -17,18 +18,23 @@ type RoomFormData = Omit<RoomInformation, 'interiorImageUrl' | 'exteriorImageUrl
 
 const AddRoomForm: FC<{ onClose: () => void; apartmentId: string }> = ({ onClose, apartmentId }) => {
   const { register, handleSubmit, setValue } = useForm<RoomFormData>();
-  const [interiorImageName, setInteriorImageName] = useState('');
-  const [exteriorImageName, setExteriorImageName] = useState('');
-
-  const interiorImageInput = useRef<HTMLInputElement>(null);
-  const exteriorImageInput = useRef<HTMLInputElement>(null);
 
   const dispatch = useDispatch<ThunkDispatch<void, void, AnyAction>>();
 
+  // image name will be shown on text field input
+  const [interiorImageName, setInteriorImageName] = useState('');
+  const [exteriorImageName, setExteriorImageName] = useState('');
+
+  // Ref to the real file input element to trigger the file selection dialog
+  const interiorImageInput = useRef<HTMLInputElement>(null);
+  const exteriorImageInput = useRef<HTMLInputElement>(null);
+
+  // upload the image to supabase and then create the room with the image URL
   const onSubmit: SubmitHandler<RoomFormData> = async (formData) => {
     try {
-      const _interiorImageUrl = await uploadImage(formData.interiorImageUrl);
-      const _exteriorImageUrl = await uploadImage(formData.exteriorImageUrl);
+      // Upload the images to Supabase
+      const _interiorImageUrl = await uploadToSupabase(formData.interiorImageUrl);
+      const _exteriorImageUrl = await uploadToSupabase(formData.exteriorImageUrl);
 
       // Dispatch the createRoom action
       await dispatch(
@@ -39,21 +45,25 @@ const AddRoomForm: FC<{ onClose: () => void; apartmentId: string }> = ({ onClose
           exteriorImageUrl: _exteriorImageUrl,
         }),
       ).unwrap(); // Unwrap the result to handle any errors
+
       onClose();
     } catch (error) {
       console.error('Failed to create room:', error);
     }
   };
 
+  // Trigger the file selection dialog for the interior image
   const handleInteriorImageClick = (): void => {
     interiorImageInput.current?.click();
   };
 
+  // Trigger the file selection dialog for the exterior image
   const handleExteriorImageClick = (): void => {
     exteriorImageInput.current?.click();
   };
 
-  const handleInteriorImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  // Handle the change event on the file input element for the interior image
+  const handleInteriorImageChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       setInteriorImageName(file.name);
@@ -61,7 +71,8 @@ const AddRoomForm: FC<{ onClose: () => void; apartmentId: string }> = ({ onClose
     }
   };
 
-  const handleExteriorImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  // Handle the change event on the file input element for the exterior image
+  const handleExteriorImageChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0];
       setExteriorImageName(file.name);

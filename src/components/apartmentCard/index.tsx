@@ -1,13 +1,15 @@
 import * as React from 'react';
+import { Button, CardActionArea, CardActions, Rating } from '@mui/material';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { Button, CardActionArea, CardActions, Rating } from '@mui/material';
-import { ApartmentInformation } from '@/app/apartments/apartmentTypes';
+
+import type { ApartmentInformation } from '@/app/myApartments/myApartmentTypes';
 
 const ApartmentCard: React.FC<Partial<ApartmentInformation>> = (props) => {
   const { name, rate = 0, description, imageUrl, onCardClick, id } = props;
+
   return (
     <Card sx={{ maxWidth: 400, margin: 'auto' }}>
       <CardActionArea onClick={() => onCardClick!(id!)}>

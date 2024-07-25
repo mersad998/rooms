@@ -11,13 +11,14 @@ import {
   deleteRoom,
 } from './apartmentsApi';
 import { ApartmentsSliceState } from './apartmentsTypes';
-import { ApartmentInformation } from '@/app/apartments/apartmentTypes';
 import { Apartment, Room } from '@/lib/supabaseTypes';
+
+import type { ApartmentInformation } from '@/app/myApartments/myApartmentTypes';
 
 const initialState: ApartmentsSliceState = {
   value: null,
   apartmentDetails: null,
-  status: 'idle',
+  status: 'loading',
   params: {
     limit: 10,
     offset: 0,
@@ -30,9 +31,7 @@ export const apartmentsSlice = createAppSlice({
   reducers: (create: any) => ({
     // Async thunk to fetch apartments list
     fetchApartmentsAction: create.asyncThunk(
-      async (params: any, options: any) => {
-        const state = options.getState();
-        const requestParams = (state as { apartments: ApartmentsSliceState }).apartments.params;
+      async () => {
         const response = await getApartments();
         return response;
       },

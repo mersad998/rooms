@@ -1,6 +1,7 @@
-import React, { type FC, type ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 
 const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   return <>{children}</>;
 };
+
 export default Layout;
