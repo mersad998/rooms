@@ -63,7 +63,11 @@ const DrawerView: React.FC<DrawerViewProps> = (props) => {
           </Typography>
 
           <IconButton onClick={colorMode?.toggleColorMode} color="inherit">
-            {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+            {theme.palette.mode === 'dark' ? (
+              <Brightness7Icon data-test-theme-type={theme.palette.mode} />
+            ) : (
+              <Brightness4Icon data-test-theme-type={theme.palette.mode} />
+            )}
           </IconButton>
         </Toolbar>
       </AppBar>
