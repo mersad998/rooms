@@ -11,7 +11,7 @@ import FullLayoutSkeleton from './ui/skeletons/fullLayoutSkeleton';
 const HomePage: FC = () => {
   const router = useRouter();
 
-  const [isLoading, apartments] = useApartments();
+  const [isLoading, apartments] = useApartments({});
 
   // Navigate to the apartment details page
   const onCardClick = (apartmentId: number): void => {
@@ -23,13 +23,23 @@ const HomePage: FC = () => {
   }
 
   if (!Array.isArray(apartments)) {
-    // we can design a better error handling here
-    return <Typography>Error in fetch apartments ...</Typography>;
+    return (
+      <div className="h-[80vh] flex flex-col justify-center">
+        <Typography variant="h6" color={'purple'} className="text-center">
+          Error in fetch apartments ...
+        </Typography>
+      </div>
+    );
   }
 
   if (!apartments.length) {
-    // we can design a better error handling here
-    return <Typography>No apartments found!</Typography>;
+    return (
+      <div className="h-[80vh] flex flex-col justify-center">
+        <Typography variant="h6" color={'purple'} className="text-center">
+          No apartments found!
+        </Typography>
+      </div>
+    );
   }
 
   return (

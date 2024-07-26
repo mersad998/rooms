@@ -20,12 +20,14 @@ const profileSlice = createSlice({
   },
   selectors: {
     selectUserName: (user) => (user.data ? (user.data?.user.email?.split('@')[0] ?? '... !') : null),
+    selectIsLogin: (user) => !!user.data?.user.id,
+    selectUserId: (user) => user.data?.user.id,
   },
 });
 
 // export actions
 export const { setUser, removeUser } = profileSlice.actions;
-export const { selectUserName } = profileSlice.selectors;
+export const { selectUserName, selectIsLogin, selectUserId } = profileSlice.selectors;
 
 // export reducer
 export default profileSlice.reducer;

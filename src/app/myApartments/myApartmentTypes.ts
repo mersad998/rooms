@@ -14,5 +14,5 @@ export interface ApartmentInformation {
   onCardClick?: (apartmentId: number) => void;
   rooms?: RoomInformation[];
   imageUrl?: string;
-  createdBy?: number;
+  createdBy?: string;
 }

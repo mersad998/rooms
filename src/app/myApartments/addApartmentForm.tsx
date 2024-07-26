@@ -3,13 +3,14 @@ import { FC, useRef, useState } from 'react';
 import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { Button, CircularProgress, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dialog } from '@mui/material';
 
 import { uploadToSupabase } from '@/lib/features/apartments/apartmentsApi';
 import { createApartmentAction } from '@/lib/features/apartments/apartmentsSlice';
 
 import type { ApartmentInformation } from './myApartmentTypes';
+import { selectUserId } from '@/lib/features/profile/profileSlice';
 
 type ApartmentFormData = Omit<ApartmentInformation, 'imageUrl'> & {
   imageUrl: File;
@@ -19,6 +20,7 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
   const { register, handleSubmit, setValue } = useForm<ApartmentFormData>();
 
   const dispatch = useDispatch<ThunkDispatch<void, void, AnyAction>>();
+  const userId = useSelector(selectUserId);
 
   // image name will be shown on text field input
   const [imageName, setImageName] = useState('');
@@ -56,6 +58,7 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
         createApartmentAction({
           ...formData,
           imageUrl: imageUrl,
+          createdBy: userId,
         }),
       ).unwrap(); // Unwrap the result to handle any errors
 

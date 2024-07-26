@@ -3,6 +3,8 @@ import makeStyles from '@mui/styles/makeStyles';
 export const useStyles = makeStyles(() => ({
   container: {
     display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     flex: 1,
     padding: 8,
     width: '100%',

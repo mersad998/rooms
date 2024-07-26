@@ -20,13 +20,13 @@ export interface DetailCardContainerProps {
   /**
    * if you pass this parameter, pen icon will appear
    */
-  onEditClick?: (id?: number) => void;
+  onEditClick?: (apartmentId?: string) => void;
   /**
    * if you pass this parameter, trash icon will appear
    */
-  onDeleteClick?: (id?: number) => void;
+  onDeleteClick?: (apartmentId?: string) => void;
   /**
    * it will pass to onEditClick
    */
-  id?: number;
+  id?: string;
 }

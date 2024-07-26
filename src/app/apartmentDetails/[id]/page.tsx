@@ -15,12 +15,17 @@ import ImageGallery from '@/components/imageGallery';
 import { getApartmentImages } from '@/components/imageGallery/helper';
 import { DetailCardContainer } from '@/components/detailCardContainer';
 import AddRoomForm from './addRoomForm';
+import { useSelector } from 'react-redux';
+import { selectUserId } from '@/lib/features/profile/profileSlice';
 
 const ApartmentDetails: FC<ApartmentDetailsProps> = (props) => {
   const { id } = props.params;
 
   const [isLoading, apartmentDetails] = useApartmentDetails(id);
   const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const userId = useSelector(selectUserId);
+  const isUsersApartment = apartmentDetails?.createdBy === userId;
 
   const classes = useStyles();
 
@@ -34,10 +39,11 @@ const ApartmentDetails: FC<ApartmentDetailsProps> = (props) => {
   }
 
   if (!apartmentDetails) {
-    // we can design a better error handling here
     return (
-      <div className={classes.container}>
-        <Typography>Apartment not found!</Typography>
+      <div className="h-[80vh] flex flex-col justify-center">
+        <Typography variant="h6" color={'purple'} className="text-center">
+          Apartment not found!
+        </Typography>
       </div>
     );
   }
@@ -60,15 +66,20 @@ const ApartmentDetails: FC<ApartmentDetailsProps> = (props) => {
       </div>
 
       <div className={classes.cardsContainer}>
-        {apartmentDetails && <ApartmentDetailCards apartment={apartmentDetails} />}
-        <DetailCardContainer title={`Add new room`} titleColor="#042f83">
-          <div
-            className={`${classes.addCard} border border-dashed border-gray-500 flex justify-center items-center w-full h-16 mx-2 mt-5 mb-5`}
-            onClick={() => setIsFormOpen(true)}
-          >
-            <AddIcon />
-          </div>
-        </DetailCardContainer>
+        {apartmentDetails && (
+          <ApartmentDetailCards apartment={apartmentDetails} allowEdit={isUsersApartment} allowDelete={isUsersApartment} />
+        )}
+
+        {isUsersApartment && (
+          <DetailCardContainer title={`Add new room`} titleColor="#042f83">
+            <div
+              className={`${classes.addCard} border border-dashed border-gray-500 flex justify-center items-center w-full h-16 mx-2 mt-5 mb-5`}
+              onClick={() => setIsFormOpen(true)}
+            >
+              <AddIcon />
+            </div>
+          </DetailCardContainer>
+        )}
       </div>
     </div>
   );

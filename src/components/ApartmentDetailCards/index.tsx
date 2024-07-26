@@ -6,12 +6,12 @@ import RoomInfoCard from './roomInfoCard';
 import type { ApartmentDetailCardsProps } from './types';
 
 const ApartmentDetailCards: FC<ApartmentDetailCardsProps> = (props) => {
-  const { apartment } = props;
+  const { apartment, allowEdit, allowDelete } = props;
 
-  const onEditClick = (apartmentId?: number): void => {
+  const onEditClick = (apartmentId?: string): void => {
     console.log('apartmentId: ', apartmentId);
   };
-  const onDeleteClick = (apartmentId?: number): void => {
+  const onDeleteClick = (apartmentId?: string): void => {
     console.log('apartmentId: ', apartmentId);
   };
 
@@ -24,8 +24,8 @@ const ApartmentDetailCards: FC<ApartmentDetailCardsProps> = (props) => {
             key={room.id}
             roomNumber={idx + 1}
             details={room}
-            onEditClick={onEditClick}
-            onDeleteClick={onDeleteClick}
+            {...(allowEdit ? { onEditClick: onEditClick } : {})}
+            {...(allowDelete ? { onDeleteClick: onDeleteClick } : {})}
           />
         );
       })}

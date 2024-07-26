@@ -11,8 +11,8 @@ import type { RoomInformation } from '@/app/apartmentDetails/[id]/apartmentDetai
 const RoomInfoCard: FC<{
   details: RoomInformation;
   roomNumber: number;
-  onEditClick: (apartmentId?: number) => void;
-  onDeleteClick: (apartmentId?: number) => void;
+  onEditClick?: (apartmentId?: string) => void;
+  onDeleteClick?: (apartmentId?: string) => void;
 }> = ({ details, roomNumber, onEditClick, onDeleteClick }) => {
   return (
     <DetailCardContainer
