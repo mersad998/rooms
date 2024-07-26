@@ -1,15 +1,17 @@
 'use client';
 import { FC, FormEvent, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Button, Paper, Typography } from '@mui/material';
+import { Box, Button, Paper, Tooltip, Typography } from '@mui/material';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 import { useRouter } from 'next/navigation';
 
 import AddApartmentForm from './addApartmentForm';
 import useApartments from '../hooks/useApartments';
-import FullLayoutSkeleton from '../ui/skeletons/fullLayoutSkeleton';
 import { useStyles } from './myApartmentStyles';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLogin } from '@/lib/features/profile/profileSlice';
+import { deleteApartmentAction } from '@/lib/features/apartments/apartmentsSlice';
+import AddLayoutSkeleton from '../ui/skeletons/addLayoutSkeleton';
 
 const MyApartments: FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -18,6 +20,7 @@ const MyApartments: FC = () => {
   const router = useRouter();
   const classes = useStyles();
 
+  const dispatch: ThunkDispatch<void, void, AnyAction> = useDispatch();
   const isLogin = useSelector(selectIsLogin);
 
   // Navigate to the apartment details page
@@ -26,8 +29,12 @@ const MyApartments: FC = () => {
   };
 
   // Handle the delete and edit button clicks
-  const onDeleteClick = (event: FormEvent<HTMLButtonElement>): void => {
+  const onDeleteClick = (event: FormEvent<HTMLButtonElement>, apartmentId: string): void => {
+    // prevent the event from bubbling up
     event.stopPropagation();
+
+    // call the deleteApartmentAction
+    dispatch(deleteApartmentAction(apartmentId));
   };
   const onEditClick = (event: FormEvent<HTMLButtonElement>): void => {
     event.stopPropagation();
@@ -47,7 +54,7 @@ const MyApartments: FC = () => {
   }
 
   if (isLoading) {
-    return <FullLayoutSkeleton />;
+    return <AddLayoutSkeleton />;
   }
 
   return (
@@ -91,12 +98,15 @@ const MyApartments: FC = () => {
             </div>
 
             <div className="flex w-full border-t border-t-purple-500 border-dotted">
-              <Button className="flex" onClick={onDeleteClick} color="error">
+              <Button className="flex" onClick={(e) => onDeleteClick(e, apartment.id)} color="error">
                 <Typography variant="body2">Delete</Typography>
               </Button>
-              <Button className="flex" onClick={onEditClick}>
-                <Typography variant="body2">Edit</Typography>
-              </Button>
+
+              <Tooltip title="It will implement later">
+                <Button className="flex" onClick={onEditClick}>
+                  <Typography variant="body2">Edit</Typography>
+                </Button>
+              </Tooltip>
             </div>
           </Box>
         );

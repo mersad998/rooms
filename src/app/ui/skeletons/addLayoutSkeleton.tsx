@@ -7,13 +7,12 @@ const CardSkeleton: FC = () => {
     <div className="m-4">
       <Skeleton variant="rectangular" width={'40vh'} height={'8vh'} />
       <Skeleton variant="rounded" width={'40vh'} height={'8vh'} />
-      <Skeleton variant="circular" width={40} height={40} />
       <Skeleton variant="rounded" width={'40vh'} height={'8vh'} />
     </div>
   );
 };
 
-const FullLayoutSkeleton: FC = () => {
+const AddLayoutSkeleton: FC = () => {
   return (
     <div className="flex flex-row flex-wrap p-2">
       {Array.from({ length: 8 }).map((_, idx) => (
@@ -23,4 +22,4 @@ const FullLayoutSkeleton: FC = () => {
   );
 };
 
-export default FullLayoutSkeleton;
+export default AddLayoutSkeleton;

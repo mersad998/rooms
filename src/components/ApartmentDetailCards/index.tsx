@@ -1,5 +1,8 @@
 import { type FC } from 'react';
+import { useDispatch } from 'react-redux';
+import { AnyAction, ThunkDispatch } from '@reduxjs/toolkit';
 
+import { deleteRoomAction } from '@/lib/features/apartments/apartmentsSlice';
 import ApartmentInfoCard from './apartmentInfoCard';
 import RoomInfoCard from './roomInfoCard';
 
@@ -8,11 +11,16 @@ import type { ApartmentDetailCardsProps } from './types';
 const ApartmentDetailCards: FC<ApartmentDetailCardsProps> = (props) => {
   const { apartment, allowEdit, allowDelete } = props;
 
+  const dispatch = useDispatch<ThunkDispatch<void, void, AnyAction>>();
+
   const onEditClick = (apartmentId?: string): void => {
     console.log('apartmentId: ', apartmentId);
   };
   const onDeleteClick = (apartmentId?: string): void => {
-    console.log('apartmentId: ', apartmentId);
+    if (!apartmentId) return;
+
+    // call the deleteRoomAction
+    dispatch(deleteRoomAction(apartmentId));
   };
 
   return (

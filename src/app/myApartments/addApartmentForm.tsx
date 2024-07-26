@@ -59,6 +59,7 @@ const AddApartmentForm: FC<{ onClose: () => void }> = ({ onClose }) => {
           ...formData,
           imageUrl: imageUrl,
           createdBy: userId,
+          rate: 3, // this is default value, implement rate picker in the future
         }),
       ).unwrap(); // Unwrap the result to handle any errors
 

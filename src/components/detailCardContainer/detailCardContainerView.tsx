@@ -1,5 +1,5 @@
 import React, { type FC } from 'react';
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, Paper, Tooltip, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -27,7 +27,11 @@ const DetailCardContainer: FC<DetailCardContainerProps> = ({
         color={titleColor}
         position="relative"
       >
-        {onEditClick && <EditIcon className={classes.editIcon} onClick={() => onEditClick(id)} />}
+        {onEditClick && (
+          <Tooltip title="It will implement later">
+            <EditIcon className={classes.editIcon} onClick={() => onEditClick(id)} />
+          </Tooltip>
+        )}
         {onDeleteClick && <DeleteIcon className={classes.deleteIcon} onClick={() => onDeleteClick(id)} />}
         {title}
       </Typography>

@@ -2,21 +2,20 @@
 
 import React, { type FC, memo, useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
-
-import { useStyles } from './apartmentDetailsStyles';
-
-import type { ApartmentDetailsProps } from './apartmentDetailsTypes';
-
+import { useSelector } from 'react-redux';
 import { Typography } from '@mui/material';
+
 import ApartmentDetailsSkeleton from '@/app/ui/skeletons/apartmentDetails';
 import useApartmentDetails from '../hooks/useApartmentDetails';
 import ApartmentDetailCards from '@/components/ApartmentDetailCards';
-import ImageGallery from '@/components/imageGallery';
 import { getApartmentImages } from '@/components/imageGallery/helper';
 import { DetailCardContainer } from '@/components/detailCardContainer';
-import AddRoomForm from './addRoomForm';
-import { useSelector } from 'react-redux';
 import { selectUserId } from '@/lib/features/profile/profileSlice';
+import { useStyles } from './apartmentDetailsStyles';
+import ImageGallery from '@/components/imageGallery';
+import AddRoomForm from './addRoomForm';
+
+import type { ApartmentDetailsProps } from './apartmentDetailsTypes';
 
 const ApartmentDetails: FC<ApartmentDetailsProps> = (props) => {
   const { id } = props.params;

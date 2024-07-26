@@ -14,7 +14,7 @@ const HomePage: FC = () => {
   const [isLoading, apartments] = useApartments({});
 
   // Navigate to the apartment details page
-  const onCardClick = (apartmentId: number): void => {
+  const onCardClick = (apartmentId: string): void => {
     router.push(`apartmentDetails/${apartmentId}`);
   };
 
