@@ -74,7 +74,7 @@ const MyApartments: FC = () => {
           <Box
             component={Paper}
             className={`${classes.cardContainer} flex flex-col justify-between items-center w-[350px] h-[300px] mx-2 p-3 mt-2`}
-            key={index}
+            key={`${apartment.id}_${index}`}
             onClick={() => goToDetails(apartment.id)}
           >
             <Typography variant="h5" color={'purple'}>
@@ -116,6 +116,7 @@ const MyApartments: FC = () => {
         component={Paper}
         className={`${classes.cardContainer} border border-dashed border-gray-500 flex justify-center items-center w-[350px] h-[300px] mx-2 mt-2`}
         onClick={() => setIsFormOpen(true)}
+        key="AddIcon container"
       >
         <AddIcon />
       </Box>

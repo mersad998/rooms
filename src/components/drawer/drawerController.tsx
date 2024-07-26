@@ -33,8 +33,6 @@ const ResponsiveDrawer: FC<ResponsiveDrawerProps> = (props: ResponsiveDrawerProp
   useEffect(() => {
     // Handle auth state change (sign in, sign out)
     const { data: authListener } = supabase.auth.onAuthStateChange((event: AuthChangeEvent, session: Session | null): void => {
-      console.log(event, session);
-
       switch (event) {
         case 'SIGNED_IN':
         case 'INITIAL_SESSION':

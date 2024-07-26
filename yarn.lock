@@ -1040,7 +1040,7 @@
     debug "^3.1.0"
     lodash.once "^4.1.1"
 
-"@ducanh2912/next-pwa@^10.2.7":
+"@ducanh2912/next-pwa@^10.2.8":
   version "10.2.8"
   resolved "https://registry.yarnpkg.com/@ducanh2912/next-pwa/-/next-pwa-10.2.8.tgz#6e7e2e2a36e791ed78e0c8c7f34c7c969fd1a02e"
   integrity sha512-4USVoyJcueYXgAjzjyzblAawcdxgZgknmhhOfA8XF+0q2xMecEhKHegqWSMfX37kahyrtA5RVmgQopR9kHs4nA==

@@ -40,8 +40,8 @@ const DrawerItemsContainer: React.FC<DrawerItemsContainerProps> = (props) => {
         <Divider />
 
         <List>
-          {primaryItems.map((item) => (
-            <ListItem key={item.link} disablePadding>
+          {primaryItems.map((item, index) => (
+            <ListItem key={`${index}_${item.link}`} disablePadding>
               <ListItemButton onClick={onRoutClick(item.link)} data-test-nav-button={item.title}>
                 <ListItemIcon>{item.icon}</ListItemIcon>
                 <ListItemText primary={item.title} />
