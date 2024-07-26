@@ -7,7 +7,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
-import { Typography, useTheme } from '@mui/material';
+import { Button, Typography, useTheme } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import { primaryItems, secondaryItems } from './constants';
@@ -15,7 +15,7 @@ import { primaryItems, secondaryItems } from './constants';
 import type { DrawerItemsContainerProps } from './drawerTypes';
 
 const DrawerItemsContainer: React.FC<DrawerItemsContainerProps> = (props) => {
-  const { onRoutClick } = props;
+  const { onRoutClick, onSignInClick, userName } = props;
 
   const theme = useTheme();
 
@@ -23,8 +23,19 @@ const DrawerItemsContainer: React.FC<DrawerItemsContainerProps> = (props) => {
     <div className="flex flex-col justify-between h-full">
       <div>
         <Toolbar>
-          <AccountCircleIcon className="text-[#042f83] mr-0.5" />
-          <Typography>Welcome Rooms User</Typography>
+          {userName ? (
+            <>
+              <AccountCircleIcon className="text-[#042f83] mr-0.5" />
+              <Typography>Welcome {userName}</Typography>
+            </>
+          ) : (
+            <Button variant="outlined" className="w-full ml-4 mr-4 flex justify-around" onClick={onSignInClick}>
+              <AccountCircleIcon className="text-[#042f83] mr-0.5" />
+              <Typography fontSize={16} fontFamily={'sans-serif'}>
+                sign In
+              </Typography>
+            </Button>
+          )}
         </Toolbar>
         <Divider />
 

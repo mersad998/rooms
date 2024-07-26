@@ -10,8 +10,10 @@ export interface DrawerViewProps {
   handleDrawerTransitionEnd: () => void;
   handleDrawerClose: () => void;
   onRoutClick: (newRoute: string) => () => void;
+  onSignInClick: () => void;
   children: ReactNode;
   colorMode?: { toggleColorMode: () => void };
+  userName: string | null;
 }
 
 export interface DrawerItem {
@@ -22,4 +24,6 @@ export interface DrawerItem {
 
 export interface DrawerItemsContainerProps {
   onRoutClick: (link: string) => () => void;
+  onSignInClick: () => void;
+  userName: string | null;
 }

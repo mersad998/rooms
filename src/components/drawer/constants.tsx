@@ -41,6 +41,6 @@ export const secondaryItems: DrawerItem[] = [
   {
     title: 'SignOut',
     icon: <LogoutIcon className="text-[#D10A65]" />,
-    link: '/',
+    link: '/signOut',
   },
 ];

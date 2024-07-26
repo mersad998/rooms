@@ -19,8 +19,17 @@ import { APP_NAME } from '@/app/(helpers)/constants';
 import DrawerItemsContainer from './drawerItemsContainer';
 
 const DrawerView: React.FC<DrawerViewProps> = (props) => {
-  const { handleDrawerToggle, mobileOpen, handleDrawerTransitionEnd, handleDrawerClose, onRoutClick, children, colorMode } =
-    props;
+  const {
+    handleDrawerToggle,
+    mobileOpen,
+    handleDrawerTransitionEnd,
+    handleDrawerClose,
+    onRoutClick,
+    children,
+    colorMode,
+    userName,
+    onSignInClick,
+  } = props;
 
   const theme = useTheme();
 
@@ -76,7 +85,7 @@ const DrawerView: React.FC<DrawerViewProps> = (props) => {
             },
           }}
         >
-          <DrawerItemsContainer onRoutClick={onRoutClick} />
+          <DrawerItemsContainer onSignInClick={onSignInClick} onRoutClick={onRoutClick} userName={userName} />
         </Drawer>
         <Drawer
           variant="permanent"
@@ -89,7 +98,7 @@ const DrawerView: React.FC<DrawerViewProps> = (props) => {
           }}
           open
         >
-          <DrawerItemsContainer onRoutClick={onRoutClick} />
+          <DrawerItemsContainer onSignInClick={onSignInClick} onRoutClick={onRoutClick} userName={userName} />
         </Drawer>
       </Box>
 

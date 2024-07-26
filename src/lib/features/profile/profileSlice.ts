@@ -1,29 +1,30 @@
-import { readFromLocalStorage, writeToLocalStorage } from '@/app/(helpers)/globalHelpers';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Session } from '@supabase/supabase-js';
 
-const initialState = {
-  data: readFromLocalStorage('profile'),
+const initialState: { data: Session | null } = {
+  data: null,
 };
 
 const profileSlice = createSlice({
   name: 'profile',
   initialState,
   reducers: {
-    // define actions
-    setData: (_state, action: PayloadAction<{ name: string }>): { data: { name: string } } => {
-      writeToLocalStorage('profile', action.payload);
+    // define action
+
+    setUser: (_state, action: PayloadAction<Session | null>) => {
       return { data: action.payload };
     },
-
-    // logout can be implement here, it should clean the local storage too
+    removeUser: () => {
+      return { data: null };
+    },
   },
   selectors: {
-    selectUserName: (user) => (user.data as { name?: string })?.name ?? '',
+    selectUserName: (user) => (user.data ? (user.data?.user.email?.split('@')[0] ?? '... !') : null),
   },
 });
 
 // export actions
-export const { setData } = profileSlice.actions;
+export const { setUser, removeUser } = profileSlice.actions;
 export const { selectUserName } = profileSlice.selectors;
 
 // export reducer
