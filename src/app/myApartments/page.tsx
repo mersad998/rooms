@@ -9,13 +9,14 @@ import AddApartmentForm from './addApartmentForm';
 import useApartments from '../hooks/useApartments';
 import { useStyles } from './myApartmentStyles';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsLogin } from '@/lib/features/profile/profileSlice';
+import { selectIsLogin, selectUserId } from '@/lib/features/profile/profileSlice';
 import { deleteApartmentAction } from '@/lib/features/apartments/apartmentsSlice';
 import AddLayoutSkeleton from '../ui/skeletons/addLayoutSkeleton';
 
 const MyApartments: FC = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [isLoading, apartments = []] = useApartments({ forUser: true });
+  const userId = useSelector(selectUserId);
+  const [isLoading, apartments = []] = useApartments({ forUserId: userId });
 
   const router = useRouter();
   const classes = useStyles();

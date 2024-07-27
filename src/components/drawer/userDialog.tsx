@@ -20,7 +20,7 @@ const UserDialog: FC<{ onClose: () => void }> = (props) => {
   const { onClose } = props;
 
   const [activeTab, setActiveTab] = useState('signIn');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [formMessage, setFormMessage] = useState({ text: '', color: '' });
 
   const onTabChange = (event: React.SyntheticEvent, newValue: string): void => {
     setActiveTab(newValue);
@@ -29,15 +29,19 @@ const UserDialog: FC<{ onClose: () => void }> = (props) => {
   const { register, handleSubmit } = useForm<UserFormData>();
 
   const onLoginClick = async (data: UserFormData): Promise<void> => {
-    const response = await supabaseSignIn(data.email, data.password);
-    console.log('response: ', response);
-  };
-  const onRegisterClick = async (data: UserFormData): Promise<void> => {
-    const response = await supabaseSignUp(data.email, data.password).catch((error) => {
-      console.log('error: ', error);
-      setErrorMessage(error.message);
+    await supabaseSignIn(data.email, data.password).catch((error) => {
+      setFormMessage({ text: error.message, color: 'error' });
     });
-    console.log('response: ', response);
+  };
+
+  const onRegisterClick = async (data: UserFormData): Promise<void> => {
+    await supabaseSignUp(data.email, data.password)
+      .then(() => {
+        setFormMessage({ text: 'please check your mail box', color: 'green' });
+      })
+      .catch((error) => {
+        setFormMessage({ text: error.message, color: 'error' });
+      });
   };
 
   return (
@@ -81,9 +85,9 @@ const UserDialog: FC<{ onClose: () => void }> = (props) => {
               Log in
             </Button>
 
-            {errorMessage ? (
+            {formMessage.text ? (
               <Typography color="error" className="mt-3">
-                {errorMessage}
+                {formMessage.text}
               </Typography>
             ) : null}
           </TabPanel>
@@ -116,9 +120,9 @@ const UserDialog: FC<{ onClose: () => void }> = (props) => {
               register
             </Button>
 
-            {errorMessage ? (
+            {formMessage.text ? (
               <Typography color="error" className="mt-3">
-                {errorMessage}
+                {formMessage.text}
               </Typography>
             ) : null}
           </TabPanel>

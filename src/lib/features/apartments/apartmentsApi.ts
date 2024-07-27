@@ -15,9 +15,16 @@ export const createApartment = async (apartment: Omit<ApartmentInformation, 'id'
   return data;
 };
 
-// Get all apartments
-export const getApartments = async (): Promise<ApartmentInformation[]> => {
-  const { data, error } = await supabase.from('apartments').select('*');
+// if userId pass to this function , it will get the only apartments with that user id
+// otherwise get all apartments
+export const getApartments = async ({ forUserId }: { forUserId?: string }): Promise<ApartmentInformation[]> => {
+  let query = supabase.from('apartments').select('*');
+
+  if (forUserId) {
+    query = query.eq('createdBy', forUserId);
+  }
+
+  const { data, error } = await query;
 
   if (error) {
     throw new Error(error.message);

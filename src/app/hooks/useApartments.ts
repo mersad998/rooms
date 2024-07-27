@@ -8,7 +8,7 @@ import { fetchApartmentsAction, isLoadingApartments, selectApartments } from '@/
 import type { ApartmentInformation } from '../myApartments/myApartmentTypes';
 import { selectIsLogin } from '@/lib/features/profile/profileSlice';
 
-const useApartments = ({ forUser }: { forUser?: boolean }): [boolean, ApartmentInformation[] | undefined] => {
+const useApartments = ({ forUserId }: { forUserId?: string }): [boolean, ApartmentInformation[] | undefined] => {
   const dispatch = useDispatch<ThunkDispatch<void, void, AnyAction>>();
   const isLogin = useSelector(selectIsLogin);
 
@@ -17,10 +17,13 @@ const useApartments = ({ forUser }: { forUser?: boolean }): [boolean, ApartmentI
 
   useEffect(() => {
     // Fetch the apartments in the first render
-    if (!forUser || (forUser && isLogin)) {
-      dispatch(fetchApartmentsAction());
+    if (!forUserId) {
+      dispatch(fetchApartmentsAction({}));
+    } else if (forUserId && isLogin) {
+      // fetch current user id apartments
+      dispatch(fetchApartmentsAction({ forUserId }));
     }
-  }, [dispatch, isLogin, forUser]);
+  }, [dispatch, isLogin, forUserId]);
 
   return [isLoading, apartments as ApartmentInformation[] | undefined];
 };

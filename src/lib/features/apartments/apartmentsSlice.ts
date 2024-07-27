@@ -31,8 +31,8 @@ export const apartmentsSlice = createAppSlice({
   reducers: (create) => ({
     // Async thunk to fetch apartments list
     fetchApartmentsAction: create.asyncThunk(
-      async () => {
-        const response = await getApartments();
+      async (conditions: { forUserId?: string }) => {
+        const response = await getApartments(conditions);
         return response;
       },
       {
