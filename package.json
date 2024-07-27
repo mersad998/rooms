@@ -55,7 +55,8 @@
     "postcss": "^8",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vercel": "^35.2.1"
   },
   "resolutions": {
     "wrap-ansi": "7.0.0",
